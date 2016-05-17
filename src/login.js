@@ -1,6 +1,0 @@
-var Login = (function () {
-
-
-
-  return {};
-});

@@ -1,17 +1,15 @@
-var App = (function () {
+/**
+ * @name
+ * @description
+ *
+ *
+ * @version
+ */
+require(['Router'], function (Router) {
 
-  var router = new Router();
 
-
-  return {
-    run: run
-  };
-
-  //////////////////////////////////
-  function run() {
-     router.activate();
-  }
+  Router.startRouting();
 });
 
-var app = new App();
-app.run();
+// // http://tutorialzine.com/2015/02/single-page-app-without-a-framework/
+// // http://verekia.com/requirejs/build-simple-client-side-mvc-app-require-js/
