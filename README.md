@@ -36,3 +36,5 @@ Für Tablets und Desktop ausgelegt.
   - Handlebars build semantic templates. We use this to render our views.
 - [Bootstrap](http://handlebarsjs.com/)
   - Bootstrap is a CSS Framework, which provides us the basic skeleton for our app.
+- [Font Awesome](http://fontawesome.io/)
+  - Font Awesome is huge icon library
