@@ -1,7 +1,14 @@
 /**
  * @name LoginView
  */
-define(['jquery', 'Handlebars'], function ($, Handlebars) {
+define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handlebars, templateService) {
+
+  /**
+   *
+   */
+  // var template = '';
+
+
 
   /**
    * Renders the login view
@@ -9,12 +16,17 @@ define(['jquery', 'Handlebars'], function ($, Handlebars) {
    * @param parameters (description)
    */
   function render(parameters) {
-    console.log('login-ctrl->render()');
-    var source = '<div class="container">\
-      <h1>{{title}}</h1>\
-    </div>';
-    var template = Handlebars.compile(source);
-    $('main').html(template(parameters));
+    console.log('bbb');
+    templateService.get('LoginTemplate')
+      .then(function (html) {
+        template = html;
+        $('main').html(template(parameters));
+      })
+      .catch(function (error) {
+        console.error('LoginTemplate could not be loaded', error)
+      });
+    // var template = Handlebars.compile(source);
+
   }
 
   return {

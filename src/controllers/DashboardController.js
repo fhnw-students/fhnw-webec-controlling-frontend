@@ -6,12 +6,12 @@ define(['views/Dashboard'], function(DashboardView){
     /**
      * (description)
      */
-    function start(){
-        console.log('dashboard-ctrl->start()');
+    function initialize(){
+        console.log('dashboard-ctrl->initialize()');
         DashboardView.render();
     }
 
     return {
-        start:start
+        initialize:initialize
     };
 });

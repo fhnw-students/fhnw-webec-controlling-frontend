@@ -34,12 +34,13 @@
             paths: {
                 jquery: '../node_modules/jquery/dist/jquery',
                 Handlebars: '../node_modules/handlebars/dist/handlebars'
-            }
+            },
+            urlArgs: "build=" + (new Date()).getTime()
         });
     </script>
 
     <!-- main app entry -->
-    <script type="text/javascript" src="App.js"></script>
+    <script data-main="app/main" type="text/javascript" src="App.js"></script>
 
 </body>
 

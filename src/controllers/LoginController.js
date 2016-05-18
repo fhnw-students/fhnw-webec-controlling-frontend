@@ -6,8 +6,8 @@ define(['views/Login'], function (LoginView) {
     /**
      * (description)
      */
-    function start() {
-        console.log('login-ctrl->start()');
+    function initialize() {
+        console.log('login-ctrl->initialize()');
         LoginView.render({
             title: 'Bubu'
         });
@@ -22,6 +22,6 @@ define(['views/Login'], function (LoginView) {
     }
 
     return {
-        start: start
+        initialize: initialize
     };
 });
