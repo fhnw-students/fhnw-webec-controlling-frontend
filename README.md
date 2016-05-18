@@ -1,8 +1,10 @@
 # JIRA Worklog Controlling
 
-In unsere DB werden die Projekt spezifischen Einstellungen gespeichert.
-Darstellung von Tabellen, Detail Ansichten und Graphen.
-Für Tablets und Desktop ausgelegt.
+Our app helps the project owner to control the worklog of their JIRA projects.
+
+We store in our backend service all project relevant informations and configurations.
+The layout is ready for desktop and tablet devices. Worklogs will be presentet with
+charts and tables.
 
 #Project
 ##API's
@@ -17,13 +19,13 @@ Für Tablets und Desktop ausgelegt.
 ##Mockups
 [Mockups](./mockups.pdf)
 
-##NFA
+##Non Functional Requirements
 | ID            | Name          |
 | :------------ |:--------------|
-| NFA_001       | Applikation muss auf Desktop und Tablet verfügbar sein |
-| NFA_002       | Anwortzeit von dem PHP Backend Server soll unter 6sec sein |
-| NFA_003       | Das Design muss Responsive sein (FlexBox) |
-| NFA_004       | Das Design soll dem Google Material Standard angelehnt sein |
+| NFR_001       | Application must work on desktop and tablet devices |
+| NFR_002       | Response time of our backend must be under 6sec |
+| NFR_003       | The app should be responsive(FlexBox) |
+| NFR_004       | The app should be build with the MVC standard |
 
 #Development
 ##Libraries
