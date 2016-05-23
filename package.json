@@ -16,6 +16,10 @@
   "author": "Gery Hirschfeld <gery.hirschfeld@w3tec.ch>",
   "contributors": [
     {
+      "name" : "Gerhard Hirschfeld",
+      "email": "gerhard.hirschfeld@students.fhnw.ch"
+    },
+    {
       "name" : "David Heimgartner",
       "email": "david.heimgartner@students.fhnw.ch"
     },
