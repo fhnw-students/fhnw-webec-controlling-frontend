@@ -1,0 +1,39 @@
+{
+  "name": "jira-controlling-frontend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.html",
+  "keywords": [
+    "RequireJS", "JQuery", "JIRA", "FHNW", "Controlling"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://hirsch88@github.com/fhnw-students/fhnw-webec-controlling-frontend.git"
+  },
+  "author": "Gery Hirschfeld <gery.hirschfeld@w3tec.ch>",
+  "contributors": [
+    {
+      "name" : "David Heimgartner",
+      "email": "david.heimgartner@students.fhnw.ch"
+    },
+    {
+      "name" : "Gabriel Brunner",
+      "email": "gabirel.brunner@students.fhnw.ch"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fhnw-students/fhnw-webec-controlling-frontend/issues"
+  },
+  "homepage": "https://github.com/fhnw-students/fhnw-webec-controlling-frontend#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.1",
+    "handlebars": "^4.0.5",
+    "jquery": "^2.2.3",
+    "requirejs": "^2.2.0"
+  }
+}
