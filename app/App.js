@@ -5,8 +5,10 @@
  *
  * @version 0.0.0
  */
-require(['Router'], function (Router) {
+require(['Router', 'jquery'], function (Router, $) {
 
   //Activates the Router to listen to the hashchanges
-  Router.start();
+  $(document).ready(function () {
+    Router.start();
+  });
 });
