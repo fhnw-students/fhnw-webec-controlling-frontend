@@ -4,7 +4,11 @@
   "description": "",
   "main": "src/index.html",
   "keywords": [
-    "RequireJS", "JQuery", "JIRA", "FHNW", "Controlling"
+    "RequireJS",
+    "JQuery",
+    "JIRA",
+    "FHNW",
+    "Controlling"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,15 +20,15 @@
   "author": "Gery Hirschfeld <gery.hirschfeld@w3tec.ch>",
   "contributors": [
     {
-      "name" : "Gerhard Hirschfeld",
+      "name": "Gerhard Hirschfeld",
       "email": "gerhard.hirschfeld@students.fhnw.ch"
     },
     {
-      "name" : "David Heimgartner",
+      "name": "David Heimgartner",
       "email": "david.heimgartner@students.fhnw.ch"
     },
     {
-      "name" : "Gabriel Brunner",
+      "name": "Gabriel Brunner",
       "email": "gabirel.brunner@students.fhnw.ch"
     }
   ],
@@ -34,10 +38,10 @@
   },
   "homepage": "https://github.com/fhnw-students/fhnw-webec-controlling-frontend#readme",
   "dependencies": {
-    "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
     "handlebars": "^4.0.5",
     "jquery": "^2.2.3",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.2.0",
+    "semantic-ui-css": "^2.1.8"
   }
 }

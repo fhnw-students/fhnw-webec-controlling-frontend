@@ -19,7 +19,7 @@ define(['jquery', 'Handlebars'], function ($, Handlebars) {
         type: 'GET',
         cache: false,
         contentType: "text/html; charset=utf-8",
-        url: 'views/' + templateName
+        url: 'app/views/' + templateName
       })
         .done(function (data) {
           console.log('success', data);
