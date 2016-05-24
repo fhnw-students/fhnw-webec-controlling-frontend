@@ -36,7 +36,7 @@ charts and tables.
   - RequireJS is a simple module loader lib. We use this to provide the MVC pattern.
 - [Handlebars](http://handlebarsjs.com/)
   - Handlebars build semantic templates. We use this to render our views.
-- [Bootstrap](http://handlebarsjs.com/)
-  - Bootstrap is a CSS Framework, which provides us the basic skeleton for our app.
+- [Semantic UI](http://semantic-ui.com/)
+  - Semantic UI is a HTML5 Framework, which provides us the basic skeleton for our app.
 - [Font Awesome](http://fontawesome.io/)
   - Font Awesome is huge icon library
