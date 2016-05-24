@@ -38,10 +38,10 @@
   },
   "homepage": "https://github.com/fhnw-students/fhnw-webec-controlling-frontend#readme",
   "dependencies": {
-    "bootswatch": "^3.3.6",
     "font-awesome": "^4.6.1",
     "handlebars": "^4.0.5",
     "jquery": "^2.2.3",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.2.0",
+    "semantic-ui-css": "^2.1.8"
   }
 }
