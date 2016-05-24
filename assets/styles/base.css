@@ -39,6 +39,10 @@ section.view nav.menu {
   border-radius: 0;
 }
 
+section.view div.container{
+  padding: 1rem;
+}
+
 nav > h1 {
   color: #ffffff;
   line-height: 0;
