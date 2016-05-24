@@ -13,6 +13,10 @@ define(['jquery'], function ($) {
     {
       hash: '#login',
       controller: 'LoginController'
+    },
+    {
+      hash: '#projectform',
+      controller: 'ProjectFormController'
     }
   ];
   /**

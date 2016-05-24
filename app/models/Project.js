@@ -4,11 +4,21 @@
 define(function(){
     /**
      * @name Project
-     * @param  {string} key
+     * @param  {Object} params
      */
-    function Project(key){
-        this.key = key;
+    function Project(params){
+        this.pid = params.pid;
+        this.name = params.name;
+        this.weekload = params.weekload;
+        this.maxhours = params.maxhours;
+        this.rangestart = params.rangestart;
+        this.rangeend = params.rangeend;
+        this.description = params.description;
     }
+
+    Project.prototype.save = function(){
+
+    };
 
     return Project;
 });
