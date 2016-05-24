@@ -9,21 +9,21 @@ main {
   display: flex;
 }
 
-.has-navbar .container {
-  padding-top: 60px;
-}
-
 section.view {
   display: flex;
   flex: 1;
 }
 
-/*body {
-  background-color: #DADADA;
-}*/
-
 section.view > .grid {
   flex: 1;
+}
+
+body {
+  background-color: #DADADA;
+}
+
+body > .grid {
+  height: 100%;
 }
 
 .image {
