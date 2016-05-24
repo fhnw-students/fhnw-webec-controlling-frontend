@@ -2,7 +2,6 @@
  * @name Router
  */
 define(['jquery'], function ($) {
-
   /**
    * Define all routes of the application here.
    */
@@ -21,7 +20,6 @@ define(['jquery'], function ($) {
    * the hashchange was not defined in the route var.
    */
   var defaultRoute = 0;
-
   /**
    * Public API
    * All the returned function are available from outside
@@ -29,9 +27,7 @@ define(['jquery'], function ($) {
   return {
     start: start
   };
-
   //////////////////////////////////////////////////////////////////////////////////
-
   /**
    * Watches the hash change and on every change the start function of
    * the controller is called
@@ -45,7 +41,6 @@ define(['jquery'], function ($) {
     //For the first time we need to call the routing function to load the view
     routing(decodeURI(window.location.hash));
   }
-
   /**
    * Evalutes the controller from the given hash string. Then it
    * loads the controller.
@@ -67,7 +62,6 @@ define(['jquery'], function ($) {
       $('main').data('view', window.location.hash);
     }
   }
-
   /**
    * Requires the controller and calls the initialize function of it.
    *

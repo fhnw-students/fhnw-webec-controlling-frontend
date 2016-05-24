@@ -2,21 +2,25 @@
  * @name LoginView
  */
 define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handlebars, templateService) {
-
   /**
-   * Local varibales
+   * Stores the jquery element of this view
    */
-  var onAfterRenderCallbacks = [];
-
+  var $Scope;
   /**
    * Public API
+   * All the returned function are available from outside
    */
   return {
     render: render,
-    onAfterRender: onAfterRender
+    getScope: getScope
   };
   ///////////////////////////////////////////////////////////
-
+  /**
+   * @returns {JQuery|Object} - JQuery scope of the view
+   */
+  function getScope() {
+    return $Scope;
+  }
   /**
    * Renders the login view
    *
@@ -24,44 +28,46 @@ define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handle
    * @param {Function} done - This is a callback function with returns the view element
    */
   function render(parameters, done) {
-    templateService.get('LoginTemplate.html')
-      .then(function (html) {
-        template = html;
-        $('main').html(template(parameters));
+    templateService
+      .renderView('#login-view', 'LoginTemplate.html', parameters)
+      .then(function (scope) {
+        $Scope = scope;
         afterRender();
-        done($('#login-view'));
-      })
-      .catch(function (error) {
-        console.error('LoginTemplate could not be loaded', error)
+        done($Scope);
       });
   }
   /**
-   * This is a life cycle hook of this view
+   * Life cycle hook. Is triggered after rendering the view
    */
   function afterRender() {
-    for (var i = 0; i < onAfterRenderCallbacks.length; i++) {
-      onAfterRenderCallbacks[i]();
-    }
+    bindForm();
   }
   /**
-   * Use this function to subscribe this life cycle hook
-   *
-   * @param  {Function} callback
-   * @return {Function} disposer - This removes the life cycle hook
+   * Binds the form to the html
    */
-  function onAfterRender(callback) {
-    if (typeof callback === 'function') {
-      throw new Error('callback must be a function');
-    }
-    onAfterRenderCallbacks.push(callback);
-    // Disposer function
-    return function () {
-      var idx = onAfterRenderCallbacks.indexOf(callback);
-      if (idx >= 0) {
-        onAfterRenderCallbacks.splice(idx, 1);
+  function bindForm() {
+    $Scope.find('.ui.form').form({
+      fields: {
+        email: {
+          identifier: 'email',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your e-mail'
+            }
+          ]
+        },
+        password: {
+          identifier: 'password',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your password'
+            }
+          ]
+        }
       }
-      return idx >= 0;
-    }
+    });
   }
 
 });

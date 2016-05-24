@@ -6,8 +6,9 @@
  * @version 0.0.0
  */
 require(['Router', 'jquery'], function (Router, $) {
-
-  //Activates the Router to listen to the hashchanges
+  /**
+   * Activates the Router to listen to the hashchanges
+   */
   $(document).ready(function () {
     Router.start();
   });

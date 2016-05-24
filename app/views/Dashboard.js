@@ -2,32 +2,45 @@
  * @name DashboardView
  */
 define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handlebars, templateService) {
-
   /**
-   * Renders the dashboard view
-   *
-   * @param parameters (description)
+   * Stores the jquery element of this view
    */
-  function render(parameters) {
-    console.log('dashboad-view->render()', parameters);
-    // var source = '<div class="container">\
-    //   <h1>Dashboard</h1>\
-    // </div>';
-    // var template = Handlebars.compile(source);
-    // $('main').html(template(parameters));
-
-
-    templateService.get('DashboardTemplate.html')
-      .then(function (html) {
-        template = html;
-        $('main').html(template(parameters));
-      })
-      .catch(function (error) {
-        console.error('LoginTemplate could not be loaded', error)
+  var $Scope;
+  /**
+   * Public API
+   * All the returned function are available from outside
+   */
+  return {
+    render: render,
+    getScope: getScope
+  };
+  ///////////////////////////////////////////////////////////
+  /**
+   * @returns {JQuery|Object} - JQuery scope of the view
+   */
+  function getScope() {
+    return $Scope;
+  }
+  /**
+   * Renders this view
+   *
+   * @param {Object} parameters - This is the context for the view
+   * @param {Function} done - This is a callback function with returns the view element
+   */
+  function render(parameters, done) {
+    templateService
+      .renderView('#dashboard-view', 'DashboardTemplate.html', parameters)
+      .then(function (scope) {
+        $Scope = scope;
+        afterRender();
+        done($Scope);
       });
   }
+  /**
+   * Life cycle hook. Is triggered after rendering the view
+   */
+  function afterRender() {
+    ;
+  }
 
-  return {
-    render: render
-  };
 });

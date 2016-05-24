@@ -1,17 +1,35 @@
 /**
  * @name  DashboardController
  */
-define(['views/Dashboard'], function(DashboardView){
-
+define(['views/Dashboard', 'semantic'], function (DashboardView, $) {
     /**
-     * (description)
+     * Public API
      */
-    function initialize(){
-        console.log('dashboard-ctrl->initialize()');
-        DashboardView.render();
+    return {
+        initialize: initialize
+    };
+    ///////////////////////////////////////////////////////////
+    /**
+     * Initialize this controller and renders the view
+     */
+    function initialize() {
+        DashboardView.render({
+            title: 'Bubu'
+        }, function () {
+            afterRender();
+        });
+    }
+    /**
+     * Life cycle hooke after rendering the view
+     */
+    function afterRender() {
+        bindEvents();
+    }
+    /**
+     * Binds all events to the view
+     */
+    function bindEvents() {
+        ;
     }
 
-    return {
-        initialize:initialize
-    };
 });
