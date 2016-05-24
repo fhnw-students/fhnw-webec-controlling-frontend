@@ -23,8 +23,8 @@
     <main></main>
 
     <!-- 3rd party libs -->
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/semantic-ui-css/semantic.js"></script>
+    <!--<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="node_modules/semantic-ui-css/semantic.js"></script>-->
     <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
 
     <!-- requirejs config -->
@@ -33,6 +33,7 @@
             baseUrl: 'app',
             paths: {
                 jquery: '../node_modules/jquery/dist/jquery',
+                semantic: '../node_modules/semantic-ui-css/semantic',
                 Handlebars: '../node_modules/handlebars/dist/handlebars'
             },
             urlArgs: "build=" + (new Date()).getTime()

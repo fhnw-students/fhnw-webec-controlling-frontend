@@ -12,6 +12,7 @@ main {
 section.view {
   display: flex;
   flex: 1;
+  flex-direction: column;
 }
 
 section.view > .grid {
@@ -32,4 +33,16 @@ body > .grid {
 
 .column {
   max-width: 450px;
+}
+
+section.view nav.menu {
+  border-radius: 0;
+}
+
+nav > h1 {
+  color: #ffffff;
+  line-height: 0;
+  font-size: 1.6rem;
+  display: flex;
+  margin-left: auto;
 }

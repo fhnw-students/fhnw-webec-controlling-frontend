@@ -22,7 +22,6 @@ define(['jquery', 'Handlebars'], function ($, Handlebars) {
         url: 'app/views/' + templateName
       })
         .done(function (data) {
-          console.log('success', data);
           resolve(Handlebars.compile(data))
         })
         .fail(function (e) {
