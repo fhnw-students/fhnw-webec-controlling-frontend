@@ -1,7 +1,7 @@
 /**
  * @name LoginController
  */
-define(['views/Login', 'semantic'], function (LoginView, $) {
+define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiService'], function ($, LoginView, SessionService, JiraApi) {
   /**
    * Public API
    */
@@ -23,6 +23,7 @@ define(['views/Login', 'semantic'], function (LoginView, $) {
     * Life cycle hooke after rendering the view
     */
   function afterRender() {
+    bindForm();
     bindEvents();
   }
   /**
@@ -31,5 +32,75 @@ define(['views/Login', 'semantic'], function (LoginView, $) {
   function bindEvents() {
     ;
   }
+  /**
+   * This is triggered after the login form is filled out and valid
+   *
+   * @param  {string} email
+   * @param  {string} password
+   */
+  function onLogin(email, password) {
+    setPending(true);
+    SessionService.activate(email, password);
+    var token = SessionService.getToken();
+    JiraApi.getAllProjects()
+      .then(function (res) {
+        setPending(false);
+        window.location.hash = '#dashboard';
+      })
+      .catch(function (err) {
+        setPending(false);
+      });
+  }
+  /**
+   * Binds the form to the html
+   */
+  function bindForm() {
+    LoginView.getScope().find('.ui.form').form({
+      fields: {
+        email: {
+          identifier: 'email',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your e-mail'
+            },
+            {
+              type: 'email',
+              prompt: 'Please enter a valid e-mail'
+            }
+          ]
+        },
+        password: {
+          identifier: 'password',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your password'
+            }
+          ]
+        }
+      },
+      on: 'blur',
+      onSuccess: function () {
+        var email = LoginView.getScope().find('input[name="email"]').val();
+        var password = LoginView.getScope().find('input[name="password"]').val();
+        onLogin(email, password);
+        return false;
+      }
+    });
+  }
+
+  function setPending(isPending) {
+    var $SubmitButton = LoginView.getScope().find('.submit');
+    var $Fields = LoginView.getScope().find('.field');
+    if (isPending) {
+      $SubmitButton.addClass('loading');
+      $Fields.addClass('disabled');
+    } else {
+      $SubmitButton.removeClass('loading');
+      $Fields.removeClass('disabled');
+    }
+  }
+
 
 });
