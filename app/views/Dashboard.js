@@ -1,7 +1,7 @@
 /**
  * @name DashboardView
  */
-define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handlebars, templateService) {
+define(['jquery', 'services/TemplateService'], function ($, templateService) {
   /**
    * Stores the jquery element of this view
    */
