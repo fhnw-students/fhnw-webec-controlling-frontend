@@ -2,6 +2,9 @@
  * @name JiraApiService
  */
 define(['jquery', 'services/SessionService'], function ($, SessionService) {
+	/**
+	 * This is the default jira backend uri
+	 */
 	var baseUrl = 'https://www.cs.technik.fhnw.ch/jira/rest/api/2';
   /**
    * Public API
@@ -11,10 +14,18 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 		getAllProjects: getAllProjects
   };
   //////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Request all jira projects of the user
+	 */
 	function getAllProjects() {
 		return request('/project');
 	}
-
+	/**
+	 * Makes a requst to the jira api backend
+	 *
+	 * @param  {string} url - rest api path
+	 * @return {Promise<Object[]>} Collection
+	 */
 	function request(url) {
 		return new Promise(function (resolve, reject) {
 			$.ajax({
@@ -28,7 +39,6 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 					'Content-Type': 'application/json; charset=utf-8'
 				},
 				beforeSend: function (xhr) {
-					// xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
 					xhr.setRequestHeader('Authorization', 'Basic ' + SessionService.getToken());
 				}
       })
@@ -40,6 +50,5 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
         });
 		});
 	}
-
 
 });

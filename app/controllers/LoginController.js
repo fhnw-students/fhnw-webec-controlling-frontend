@@ -13,9 +13,7 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
    * Initialize this controller and renders the view
    */
   function initialize() {
-    LoginView.render({
-      title: 'Bubu'
-    }, function () {
+    LoginView.render({}, function () {
       afterRender();
     });
   }
@@ -89,15 +87,19 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
       }
     });
   }
-
+  /**
+   * Adds  a loader to the submit button and disables the form inputs
+   *
+   * @param  {boolean} isPending
+   */
   function setPending(isPending) {
     var $SubmitButton = LoginView.getScope().find('.submit');
     var $Fields = LoginView.getScope().find('.field');
     if (isPending) {
-      $SubmitButton.addClass('loading');
+      $SubmitButton.addClass('loading').prop('disabled', true);
       $Fields.addClass('disabled');
     } else {
-      $SubmitButton.removeClass('loading');
+      $SubmitButton.removeClass('loading').prop('disabled', false);
       $Fields.removeClass('disabled');
     }
   }
