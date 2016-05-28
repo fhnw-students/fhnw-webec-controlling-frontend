@@ -17,10 +17,13 @@ define(['views/Dashboard', 'semantic', 'services/SessionService'], function (Das
         DashboardView.render({
             title: 'Bubu',
             projects: [
-                'Project1',
-                'Project2',
-                'Project3'
-            ],
+                'P1',
+                'P2',
+                'P3',
+                'P4',
+                'P5',
+                'P6'
+            ]
         }, function () {
             afterRender();
         });
