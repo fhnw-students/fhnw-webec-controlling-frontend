@@ -2,6 +2,7 @@
  * @name  DashboardController
  */
 define(['views/Dashboard', 'semantic'], function (DashboardView, $) {
+    var projects = [];
     /**
      * Public API
      */
@@ -14,7 +15,12 @@ define(['views/Dashboard', 'semantic'], function (DashboardView, $) {
      */
     function initialize() {
         DashboardView.render({
-            title: 'Bubu'
+            title: 'Bubu',
+            projects: [
+                'Project1',
+                'Project2',
+                'Project3'
+            ],
         }, function () {
             afterRender();
         });
