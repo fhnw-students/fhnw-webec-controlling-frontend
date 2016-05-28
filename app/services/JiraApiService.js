@@ -59,7 +59,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	 * @returns  {Promise<Object[]>} Collection
 	 */
 	function requestJira(url, key) {
-		var url = jiraRoute + url + (key) ? '/' + key : '',
+		var url = jiraRoute + url + ((key === undefined) ? '' : '/' + key);
 		return request(url);
 	}
 	/**
