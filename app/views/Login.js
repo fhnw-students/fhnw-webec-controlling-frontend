@@ -32,42 +32,14 @@ define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handle
       .renderView('#login-view', 'LoginTemplate.html', parameters)
       .then(function (scope) {
         $Scope = scope;
-        afterRender();
+        // afterRender();
         done($Scope);
       });
   }
   /**
    * Life cycle hook. Is triggered after rendering the view
    */
-  function afterRender() {
-    bindForm();
-  }
-  /**
-   * Binds the form to the html
-   */
-  function bindForm() {
-    $Scope.find('.ui.form').form({
-      fields: {
-        email: {
-          identifier: 'email',
-          rules: [
-            {
-              type: 'empty',
-              prompt: 'Please enter your e-mail'
-            }
-          ]
-        },
-        password: {
-          identifier: 'password',
-          rules: [
-            {
-              type: 'empty',
-              prompt: 'Please enter your password'
-            }
-          ]
-        }
-      }
-    });
-  }
+  // function afterRender() {
+  // }
 
 });

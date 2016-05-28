@@ -40,3 +40,6 @@ charts and tables.
   - Semantic UI is a HTML5 Framework, which provides us the basic skeleton for our app.
 - [Font Awesome](http://fontawesome.io/)
   - Font Awesome is huge icon library
+
+ ##API
+ http://fhnw.w3tec.ch/api/public/user/1/projects

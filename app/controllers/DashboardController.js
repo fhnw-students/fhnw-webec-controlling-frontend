@@ -1,8 +1,8 @@
 /**
  * @name  DashboardController
  */
-define(['views/Dashboard', 'semantic'], function (DashboardView, $) {
-    var projects = [];
+define(['views/Dashboard', 'semantic', 'services/SessionService'], function (DashboardView, $, SessionService) {
+	var projects = [];
     /**
      * Public API
      */
@@ -35,7 +35,11 @@ define(['views/Dashboard', 'semantic'], function (DashboardView, $) {
      * Binds all events to the view
      */
     function bindEvents() {
-        ;
+        DashboardView.getScope().find('a.logout').on('click', onClickLogout.bind(this))
+    }
+
+    function onClickLogout() {
+        SessionService.clearToken();
     }
 
 });
