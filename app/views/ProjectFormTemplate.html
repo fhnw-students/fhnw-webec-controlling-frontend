@@ -18,12 +18,17 @@
     <!-- Content -->
     <div class="container">
 
-        <form class="ui form">
+        <form class="ui form" autocomplete="off">
             <div class="ui error message"></div>
 
             <div class="field">
                 <label>JIRA Project Key</label>
-                <input type="text" name="pid" placeholder="JIRA Project Key">
+
+                <select class="ui dropdown" name="pid" id="pid-dropdown">
+                    <option value="">JIRA Project Key</option>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
             </div>
             <div class="field">
                 <label>Name</label>

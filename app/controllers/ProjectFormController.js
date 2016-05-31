@@ -44,6 +44,11 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
      * Binds all fields of the form to the view
      */
     function bindForm(){
+        ProjectFormView.getScope().find('#pid-dropdown').children('option').remove();
+        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="">JIRA Project Key</option>');
+        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="asdf1">Test 1</option>');
+        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="asdf2">Test 2</option>');
+        ProjectFormView.getScope().find('#pid-dropdown').dropdown();
         ProjectFormView.getScope().find('.ui.form').form({
             fields: {
                 pid: {
@@ -51,7 +56,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please enter a JIRA project key'
+                            prompt: 'JIRA Project Key: Please choose a project key'
                         }
                     ]
                 },
@@ -60,7 +65,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please enter a name for the project'
+                            prompt: 'Name: Please enter a name for the project'
                         }
                     ]
                 },
@@ -69,7 +74,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules:[
                         {
                             type: 'integer[0..168]',
-                            prompt: 'Please enter a valid number between 0 and 168'
+                            prompt: 'Week Load (in hours): Please enter a valid number between 0 and 168'
                         }
                     ]
                 },
@@ -78,7 +83,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules:[
                         {
                             type: 'integer',
-                            prompt: 'Please enter a valid number'
+                            prompt: 'Max Working Hours Per Person: Please enter a valid number'
                         }
                     ]
                 },
@@ -87,7 +92,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please enter a start date for the project'
+                            prompt: 'Start Date: Please enter a start date for the project'
                         }
                     ]
                 },
@@ -96,7 +101,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please enter a end date for the project'
+                            prompt: 'End Date: Please enter a end date for the project'
                         }
                     ]
                 }
@@ -104,13 +109,13 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
             on: 'blur',
             onSuccess: function () {
                 var project = new Project({
-                    pid: LoginView.getScope().find('input[name="pid"]').val(),
-                    name: LoginView.getScope().find('input[name="name"]').val(),
-                    weekload: LoginView.getScope().find('input[name="weekload"]').val(),
-                    maxhours: LoginView.getScope().find('input[name="maxhours"]').val(),
-                    rangestart: LoginView.getScope().find('input[name="rangestart"]').val(),
-                    rangeend: LoginView.getScope().find('input[name="rangeend"]').val(),
-                    description: LoginView.getScope().find('input[name="description"]').val()
+                    pid: ProjectFormView.getScope().find('input[name="pid"]').val(),
+                    name: ProjectFormView.getScope().find('input[name="name"]').val(),
+                    weekload: ProjectFormView.getScope().find('input[name="weekload"]').val(),
+                    maxhours: ProjectFormView.getScope().find('input[name="maxhours"]').val(),
+                    rangestart: ProjectFormView.getScope().find('input[name="rangestart"]').val(),
+                    rangeend: ProjectFormView.getScope().find('input[name="rangeend"]').val(),
+                    description: ProjectFormView.getScope().find('input[name="description"]').val()
                 });
                 project.save();
                 return false;
