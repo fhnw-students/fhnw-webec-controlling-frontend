@@ -1,27 +1,17 @@
 /**
- * @name JiraApiService
+ * @name ApiService
  */
 define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	/**
 	 * This is the default jira backend uri
 	 */
-	var baseUrl = 'https://www.cs.technik.fhnw.ch/jira/rest';
-	/**
-	 * Route to the main jira api
-	 */
-	var jiraRoute = '/api/2';
-	/**
-	 * Route to the jira plugin tempo
-	 */
-	var tempoRoute = '/tempo-timesheets/3/worklogs';
+	var baseUrl = 'http://fhnw.w3tec.ch/api/public';
   /**
    * Public API
    * All the returned function are available from outside
    */
   return {
-		getAllProjects: getAllProjects,
-		getIssue: getIssue,
-		getWorklogs: getWorklogs
+		getAllProjects: getAllProjects
   };
   //////////////////////////////////////////////////////////////////////////////////
 	/**
@@ -30,26 +20,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	 * @returns {Promise<Object[]>} Collection of Jira projects
 	 */
 	function getAllProjects() {
-		return requestJira('/project');
-	}
-	/**
-	 * Request the issue with the given key
-	 *
-	 * @param  {string} key
-	 * @returns {Promise<Object>} Jira issue
-	 */
-	function getIssue(key) {
-		return requestJira('/issue', key);
-	}
-	/**
-	 * @param  {any} projectKey
-	 * @param  {any} dateFrom
-	 * @param  {any} dateTo
-	 * @returns {Promise<Object[]>} Collection of Jira worklogs
-	 */
-	function getWorklogs(projectKey, dateFrom, dateTo) {
-		var url = tempoRoute + '/?projectKey=' + projectKey + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo;
-		return request(url);
+		return request('/all/projects');
 	}
 	/**
 	 * Makes a requst to the jira api backend
@@ -58,7 +29,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	 * @param  {string} key - identifier
 	 * @returns  {Promise<Object[]>} Collection
 	 */
-	function requestJira(url, key) {
+	function request(url, key) {
 		var url = jiraRoute + url + ((key === undefined) ? '' : '/' + key);
 		return request(url);
 	}
