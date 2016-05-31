@@ -1,7 +1,7 @@
 /**
  * @name  ProjectFormController
  */
-define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFormView, $, Project) {
+define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ApiService'], function (ProjectFormView, $, Project, ApiService) {
     /**
      * Public API
      */
@@ -46,8 +46,11 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
     function bindForm(){
         ProjectFormView.getScope().find('#pid-dropdown').children('option').remove();
         ProjectFormView.getScope().find('#pid-dropdown').append('<option value="">JIRA Project Key</option>');
-        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="asdf1">Test 1</option>');
-        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="asdf2">Test 2</option>');
+        ApiService.getAllProjects().then(function(projects){
+            for (i=0; i<projects.length; i++){
+                ProjectFormView.getScope().find('#pid-dropdown').append('<option value="'+projects[i]['key']+'">'+projects[i]['key']+' - '+projects[i]['name']+'</option>');
+            }
+        });
         ProjectFormView.getScope().find('#pid-dropdown').dropdown();
         ProjectFormView.getScope().find('.ui.form').form({
             fields: {
