@@ -1,7 +1,7 @@
 /**
  * @name LoginController
  */
-define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiService'], function ($, LoginView, SessionService, JiraApi) {
+define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginView, ApiService) {
   /**
    * Public API
    */
@@ -14,6 +14,7 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
    */
   function initialize() {
     LoginView.render({}, function () {
+      console.log('render');
       afterRender();
     });
   }
@@ -37,22 +38,23 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
    * @param  {string} password
    */
   function onLogin(email, password) {
+    hideMessageForWrongLogin();
     setPending(true);
-    SessionService.activate(email, password);
-    var token = SessionService.getToken();
-    JiraApi.getAllProjects()
+    ApiService.login(email, password)
       .then(function (res) {
         setPending(false);
         window.location.hash = '#dashboard';
       })
       .catch(function (err) {
         setPending(false);
+        showMessageForWrongLogin();
       });
   }
   /**
    * Binds the form to the html
    */
   function bindForm() {
+    console.log(LoginView.getScope().find('.ui.form'));
     LoginView.getScope().find('.ui.form').form({
       fields: {
         email: {
@@ -79,10 +81,9 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
         }
       },
       on: 'blur',
-      onSuccess: function () {
-        var email = LoginView.getScope().find('input[name="email"]').val();
-        var password = LoginView.getScope().find('input[name="password"]').val();
-        onLogin(email, password);
+      onSuccess: function (event, fields) {
+        console.log('onSuccess', event, fields);
+        onLogin(fields.email, fields.password);
         return false;
       }
     });
@@ -103,6 +104,18 @@ define(['semantic', 'views/Login', 'services/SessionService', 'services/JiraApiS
       $Fields.removeClass('disabled');
     }
   }
-
+  /**
+   * Shows the error message to show the user that his credentials
+   * are wrong.
+   */
+  function showMessageForWrongLogin() {
+    LoginView.getScope().find('.msg-wrong-login').removeClass('hidden');
+  }
+  /**
+   * Hides the error message
+   */
+  function hideMessageForWrongLogin() {
+    LoginView.getScope().find('.msg-wrong-login').addClass('hidden');
+  }
 
 });
