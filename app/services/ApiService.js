@@ -1,28 +1,52 @@
 /**
  * @name ApiService
  */
-define(['jquery', 'services/SessionService'], function ($, SessionService) {
+define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], function ($, SessionService, User, Project) {
 	/**
 	 * This is the default jira backend uri
 	 */
-	var baseUrl = 'http://fhnw.w3tec.ch/api/public';
-	var baseUrl = 'http://api.wjc';
+	var baseUrl = 'https://fhnw.w3tec.ch/api/public';
+	// var baseUrl = 'http://api.wjc';
+
   /**
    * Public API
    * All the returned function are available from outside
    */
   return {
 		login: login,
-		getAllProjects: getAllProjects
+		logut: logut,
+		getAllProjects: getAllProjects,
+		getProjects: getProjects
   };
   //////////////////////////////////////////////////////////////////////////////////
-
+	/**
+	 * Saves the toke and tries to login to our backend.
+	 * @param  {string} username
+	 * @param  {string} password
+	 * @returns {Promise<User>}
+	 */
 	function login(username, password) {
-		SessionService.activate(username, password);
-		return request('/login', 'POST', {
-			username: username,
-			password: password
+		return new Promise(function (resolve, reject) {
+			SessionService.activate(username, password);
+			request('/login', 'POST', {
+				username: username,
+				password: password
+			})
+				.then(function (res) {
+					SessionService.setMySelf(new User(res));
+					return resolve(SessionService.getMySelf());
+				})
+				.catch(function (err) {
+					SessionService.clearToken();
+					return reject(err);
+				});
 		});
+	}
+	/**
+	 * Destroys the auth token from the localstorage
+	 */
+	function logut() {
+		SessionService.clearToken();
 	}
 	/**
 	 * Request all jira projects of the user
@@ -31,6 +55,19 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	 */
 	function getAllProjects() {
 		return request('/all/projects');
+	}
+	/**
+	 * Request all my projects of the user
+	 *
+	 * @returns {Promise<Projects[]>} Collection of Jira projects
+	 */
+	function getProjects(key) {
+		return request('/projects' + ((key) ? '/' + key : ''))
+			.then(function (projects) {
+				return projects.map(function (project) {
+					return new Project(project);
+				})
+			});
 	}
 	/**
 	 * Makes a requst to the jira api backend
