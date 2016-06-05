@@ -3,6 +3,10 @@
  */
 define([], function () {
 	/**
+	 * The key for the local storage database
+	 */
+	var localStorageKey = 'fhnw-jira-token';
+	/**
 	 * This is the logedin user
 	 */
 	var mySelf;
@@ -57,7 +61,7 @@ define([], function () {
 	 * @returns {string} token
 	 */
 	function getToken() {
-		return localStorage.getItem('token');
+		return localStorage.getItem(localStorageKey);
 	}
 	/**
 	 * Activates a new session and build the new token and stores them in the local storage
@@ -66,13 +70,13 @@ define([], function () {
 	 * @param  {string} password
 	 */
 	function activate(username, password) {
-		localStorage.setItem('token', generateToken(username, password));
+		localStorage.setItem(localStorageKey, generateToken(username, password));
 	}
 	/**
 	 * Removes the token from the local storage. This is used to kill a session
 	 */
 	function clearToken() {
-		localStorage.removeItem('token');
+		localStorage.removeItem(localStorageKey);
 	}
 
 });

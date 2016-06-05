@@ -43,7 +43,7 @@ define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginVie
     ApiService.login(email, password)
       .then(function (res) {
         setPending(false);
-        window.location.hash = '#dashboard';
+        window.location.hash = '#7dashboard';
       })
       .catch(function (err) {
         setPending(false);

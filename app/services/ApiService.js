@@ -6,8 +6,24 @@ define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], f
 	 * This is the default jira backend uri
 	 */
 	var baseUrl = 'https://fhnw.w3tec.ch/api/public';
-	// var baseUrl = 'http://api.wjc';
-
+	/**
+	 * Has some basic colors for the charts
+	 */
+	var colors = [
+		'#db2828',
+		'#f2711c',
+		'#fbbd08',
+		'#b5cc18',
+		'#21ba45',
+		'#00b5ad',
+		'#2185d0',
+		'#6435c9',
+		'#a333c8',
+		'#e03997',
+		'#a5673f',
+		'#767676',
+		'#1b1c1d',
+	];
   /**
    * Public API
    * All the returned function are available from outside
@@ -16,7 +32,8 @@ define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], f
 		login: login,
 		logut: logut,
 		getAllProjects: getAllProjects,
-		getProjects: getProjects
+		getProjects: getProjects,
+		getProjectGraphData: getProjectGraphData
   };
   //////////////////////////////////////////////////////////////////////////////////
 	/**
@@ -70,6 +87,25 @@ define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], f
 			});
 	}
 	/**
+	 * @param  {string} projectKey
+	 * @param  {string} graphName
+	 * @returns {Promise<Object>}
+	 */
+	function getProjectGraphData(projectKey, graphName) {
+		return request('/projects/' + projectKey + '/' + graphName + '/graph')
+			.then(function (data) {
+				var indexColor = 0;
+				data.datasets = data.datasets.map(function (dataset) {
+					dataset.backgroundColor = 'transparent';
+					dataset.borderColor = colors[indexColor++];
+					dataset.fill = false;
+					return dataset;
+				});
+				return data;
+			});
+
+	}
+	/**
 	 * Makes a requst to the jira api backend
 	 *
 	 * @param  {string} url - rest api path
@@ -93,10 +129,6 @@ define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], f
 				url: baseUrl + url,
         cache: false,
 				async: false,
-				// crossDomain: true,
-				// xhrFields: {
-				// 	withCredentials: true
-				// },
 				headers: {
 					Accept: 'application/json; charset=utf-8',
 					'Content-Type': 'application/json; charset=utf-8'

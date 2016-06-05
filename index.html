@@ -23,6 +23,8 @@
     <main></main>
 
     <!-- requirejs config -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/chart.js/dist/Chart.min.js"></script>
     <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
     <script type="text/javascript">
         requirejs.config({
@@ -31,6 +33,7 @@
                 jquery: '../node_modules/jquery/dist/jquery',
                 semantic: '../node_modules/semantic-ui-css/semantic',
                 Handlebars: '../node_modules/handlebars/dist/handlebars'
+                // Chart: '../node_modules/chart.js/dist/Chart.min'
             },
             urlArgs: "build=" + (new Date()).getTime()
         });
