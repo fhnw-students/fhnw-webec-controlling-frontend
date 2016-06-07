@@ -150,23 +150,21 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
      */
     function loadGraphData(graphName) {
       setGraphLoading(true);
-      setTimeout(function () {
-        project.getGraphData(graphName)
-          .then(function (data) {
-            if (graph) {
-              graph.destroy();
-            }
-            graph = new Chart($('#graph-container'), {
-              type: 'line',
-              data: data
-            });
-            setGraphLoading(false);
-          }).catch(function (err) {
-            console.error(err);
-            setErrorMessage(true);
-            setGraphLoading(false);
+      project.getGraphData(graphName)
+        .then(function (data) {
+          if (graph) {
+            graph.destroy();
+          }
+          graph = new Chart($('#graph-container'), {
+            type: 'line',
+            data: data
           });
-      }, 100);
+          setGraphLoading(false);
+        }).catch(function (err) {
+          console.error(err);
+          setErrorMessage(true);
+          setGraphLoading(false);
+        });
     }
     /**
      * Shows a loading dimmer over the graph's area

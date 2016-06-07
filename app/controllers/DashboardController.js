@@ -32,35 +32,33 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       setErrorMessage(false);
       setProjectListSegment(false);
       bindEvents();
-      setTimeout(function () {
-        Project.getAll()
-          .then(function (projects) {
-            list = projects;
+      Project.getAll()
+        .then(function (projects) {
+          list = projects;
 
-            list = list.map(function (item) {
-              var diff = getDaysBetween(new Date(item.getData().rangestart), new Date(item.getData().rangeend));
-              var diffCurrent = getDaysBetween(new Date(item.getData().rangestart), new Date());
-              item.statusTime = (100 / diff * diffCurrent).toFixed(0);
-              item.statusTimeSpent = (100 / (item.getData().maxhours * item.getData().teamSize) * item.getData().timeSpent).toFixed(0);
-              return item;
-            });
-
-            if (list && list.length > 0) {
-              DashboardView.setListItems(list, function () {
-                DashboardView.getScope().find('.project-list > .item').on('click', onClickProject);
-              });
-              setProjectListSegment(true);
-            } else {
-              setEmptyMessage(true);
-            }
-            setDimmer(false);
-          })
-          .catch(function (err) {
-            console.error(err);
-            setDimmer(false);
-            setErrorMessage(true);
+          list = list.map(function (item) {
+            var diff = getDaysBetween(new Date(item.getData().rangestart), new Date(item.getData().rangeend));
+            var diffCurrent = getDaysBetween(new Date(item.getData().rangestart), new Date());
+            item.statusTime = (100 / diff * diffCurrent).toFixed(0);
+            item.statusTimeSpent = (100 / (item.getData().maxhours * item.getData().teamSize) * item.getData().timeSpent).toFixed(0);
+            return item;
           });
-      }, 100);
+
+          if (list && list.length > 0) {
+            DashboardView.setListItems(list, function () {
+              DashboardView.getScope().find('.project-list > .item').on('click', onClickProject);
+            });
+            setProjectListSegment(true);
+          } else {
+            setEmptyMessage(true);
+          }
+          setDimmer(false);
+        })
+        .catch(function (err) {
+          console.error(err);
+          setDimmer(false);
+          setErrorMessage(true);
+        });
     }
     /**
      * Binds all events to the view
