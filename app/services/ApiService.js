@@ -15,7 +15,8 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			create: create,
 			read: read,
 			update: update,
-			destroy: destroy
+			destroy: destroy,
+			custom: custom
 		};
 
 		function create(path, data) {
