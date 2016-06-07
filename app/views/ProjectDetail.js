@@ -1,7 +1,7 @@
 /**
- * @name DashboardView
+ * @name ProjectDetailView
  */
-define(['jquery', 'services/TemplateService'], function ($, templateService) {
+define(['semantic', 'services/TemplateService'], function ($, templateService) {
   /**
    * Stores the jquery element of this view
    */
@@ -12,8 +12,7 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    */
   return {
     render: render,
-    getScope: getScope,
-    setListItems: setListItems
+    getScope: getScope
   };
   ///////////////////////////////////////////////////////////
   /**
@@ -30,7 +29,7 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    */
   function render(parameters, done) {
     templateService
-      .renderView('#dashboard-view', 'DashboardTemplate.html', parameters)
+      .renderView('#project-detail-view', 'ProjectDetailTemplate.html', parameters)
       .then(function (scope) {
         $Scope = scope;
         afterRender();
@@ -41,27 +40,8 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    * Life cycle hook. Is triggered after rendering the view
    */
   function afterRender() {
-    ;
-  }
-  /**
-   * @param  {Array} list of the projects
-   * @param  {Function} done callback
-   */
-  function setListItems(list, done) {
-    console.log(list[0].getData());
-    templateService
-      .get('DashboardItemTemplate.html')
-      .then(function (templateItem) {
-        var html = '';
-        for (var i = 0; i < list.length; i++) {
-          html += templateItem(list[i]);
-        }
-        $Scope.find('.project-list > .item').remove();
-        $Scope.find('.project-list').append(html);
-        if (done) {
-          done();
-        }
-      });
+    $Scope.find('.graph-select').dropdown();
+    $Scope.find('.settings-select').dropdown();
   }
 
 });

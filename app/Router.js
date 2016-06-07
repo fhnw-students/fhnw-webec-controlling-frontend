@@ -7,17 +7,21 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
    */
   var routes = [
     {
-      hash: '#dashboard',
+      hash: '#/dashboard',
       controller: 'DashboardController'
     },
     {
-      hash: '#login',
+      hash: '#/login',
       controller: 'LoginController'
     },
     {
-      hash: '#projectform',
+      hash: '#/projectform',
       controller: 'ProjectFormController'
-    }
+    },
+    {
+      hash: '#/detail',
+      controller: 'ProjectDetailController'
+    },
   ];
   /**
    * This is the default route and will be called if the hash at

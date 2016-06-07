@@ -22,14 +22,14 @@ define(['jquery', 'Handlebars'], function ($, Handlebars) {
       $.ajax({
         type: 'GET',
         cache: false,
-        contentType: "text/html; charset=utf-8",
+        contentType: 'text/html; charset=utf-8',
         url: 'app/views/' + templateUrl
       })
         .done(function (data) {
           resolve(Handlebars.compile(data))
         })
         .fail(function (e) {
-          console.log('fail', e);
+          console.error('Template could not be loaded', error);
           reject(e);
         });
     });
@@ -50,7 +50,6 @@ define(['jquery', 'Handlebars'], function ($, Handlebars) {
           resolve($Scope = $(id));
         })
         .catch(function (error) {
-          console.error('Template could not be loaded', error)
           reject(error);
         });
     });

@@ -2,17 +2,41 @@
  * @name SessionService
  */
 define([], function () {
+	/**
+	 * The key for the local storage database
+	 */
+	var localStorageKey = 'fhnw-jira-token';
+	/**
+	 * This is the logedin user
+	 */
+	var mySelf;
   /**
    * Public API
    * All the returned function are available from outside
    */
   return {
+		getMySelf: getMySelf,
+		setMySelf: setMySelf,
 		getToken: getToken,
 		hasToken: hasToken,
 		activate: activate,
 		clearToken: clearToken
   };
   //////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the logedin user
+	 * @returns {User}
+	 */
+	function getMySelf() {
+		return mySelf;
+	}
+	/**
+	 * Stores a new logedin user
+	 * @param  {User} user
+	 */
+	function setMySelf(user) {
+		mySelf = user;
+	}
 	/**
 	 * Builds the token with the username and the password. This is base 64
 	 * encoding.
@@ -37,7 +61,7 @@ define([], function () {
 	 * @returns {string} token
 	 */
 	function getToken() {
-		return localStorage.getItem('token');
+		return localStorage.getItem(localStorageKey);
 	}
 	/**
 	 * Activates a new session and build the new token and stores them in the local storage
@@ -46,13 +70,13 @@ define([], function () {
 	 * @param  {string} password
 	 */
 	function activate(username, password) {
-		localStorage.setItem('token', generateToken(username, password));
+		localStorage.setItem(localStorageKey, generateToken(username, password));
 	}
 	/**
 	 * Removes the token from the local storage. This is used to kill a session
 	 */
 	function clearToken() {
-		localStorage.removeItem('token');
+		localStorage.removeItem(localStorageKey);
 	}
 
 });

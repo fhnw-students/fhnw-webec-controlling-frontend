@@ -5,48 +5,78 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	/**
 	 * This is the default jira backend uri
 	 */
-	var baseUrl = 'http://fhnw.w3tec.ch/api/public';
+	var baseUrl = 'https://fhnw.w3tec.ch/api/public';
   /**
    * Public API
    * All the returned function are available from outside
    */
-  return {
-		getAllProjects: getAllProjects
-  };
-  //////////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Request all jira projects of the user
-	 *
-	 * @returns {Promise<Object[]>} Collection of Jira projects
-	 */
-	function getAllProjects() {
-		return request('/all/projects');
+	return function (route) {
+		return {
+			create: create,
+			read: read,
+			update: update,
+			destroy: destroy
+		};
+
+		function create(path, data) {
+			path = buildRoute(route, path);
+			return request(path, 'POST', data);
+		}
+
+		function read(path, key) {
+			path = buildRoute(route, path, key);
+			return request(path, 'GET');
+		}
+
+		function update(path, key, data) {
+			path = buildRoute(route, path, key);
+			return request(path, 'PUT', data);
+		}
+
+		function destroy(path, key) {
+			path = buildRoute(route, path, key);
+			return request(path, 'DELETE');
+		}
+
+		function custom(path, method) {
+			if (!path) {
+				path = '';
+			}
+			return request(route + path, method || 'GET');
+		}
+	};
+	//////////////////////////////////////////////////////////////////////////////////
+	function buildRoute(route, path, key) {
+		var uri = route;
+		if (path && path.charAt(0) === '/') {
+			uri += path;
+			if (key) {
+				uri += '/' + key;
+			}
+		} else {
+			if (path && !key) {
+				uri += '/' + path;
+			} else {
+				uri += '/' + key;
+			}
+		}
+		return uri;
 	}
 	/**
 	 * Makes a requst to the jira api backend
 	 *
 	 * @param  {string} url - rest api path
-	 * @param  {string} key - identifier
-	 * @returns  {Promise<Object[]>} Collection
-	 */
-	function request(url, key) {
-		var url = jiraRoute + url + ((key === undefined) ? '' : '/' + key);
-		return request(url);
-	}
-	/**
-	 * Makes a requst to the jira api backend
-	 *
-	 * @param  {string} url - rest api path
+	 * @param  {string} method - http metohd (GET, POST, PUT, DELETE)
+	 * @param  {any} data - payload
 	 * @returns {Promise<Object[]>} Collection
 	 */
-	function request(url) {
+	function request(url, method, data) {
 		return new Promise(function (resolve, reject) {
-			$.ajax({
-        type: 'GET',
+			var options = {
+        type: method || 'GET',
 				url: baseUrl + url,
         cache: false,
 				async: false,
-				crossDomain: true,
 				headers: {
 					Accept: 'application/json; charset=utf-8',
 					'Content-Type': 'application/json; charset=utf-8'
@@ -54,7 +84,13 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 				beforeSend: function (xhr) {
 					xhr.setRequestHeader('Authorization', 'Basic ' + SessionService.getToken());
 				}
-      })
+      };
+
+			if (data) {
+				options.data = data;
+			}
+
+			$.ajax(options)
         .done(function (data) {
           resolve(data);
         })
