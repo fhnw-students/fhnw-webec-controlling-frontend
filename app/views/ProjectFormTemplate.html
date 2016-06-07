@@ -15,8 +15,20 @@
         </div>
     </nav>
 
+    <!-- Spinner if request is pending -->
+    <div class="ui page dimmer hidden">
+        <div class="ui text loader">Loading...</div>
+    </div>
+
+
     <!-- Content -->
     <div class="container">
+
+        <!-- Message if something went wrong -->
+        <div class="ui negative message error-message hidden">
+            <div class="header">Something went wrong!</div>
+            <p>Please try again or contact your administrator</p>
+        </div>
 
         <form class="ui form" autocomplete="off">
             <div class="ui error message"></div>
@@ -64,17 +76,5 @@
                 <textarea name="description"></textarea>
             </div>
         </form>
-    </div>
-
-    <!-- Message if something went wrong -->
-    <div class="ui negative message error-message hidden">
-        <i class="close icon"></i>
-        <div class="header">Something went wrong!</div>
-        <p>Please try again or contact your administrator</p>
-    </div>
-
-    <!-- Spinner if request is pending -->
-    <div class="ui page dimmer hidden">
-        <div class="ui text loader">Loading...</div>
     </div>
 </section>
