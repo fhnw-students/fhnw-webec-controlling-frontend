@@ -79,7 +79,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
         type: method || 'GET',
 				url: baseUrl + url,
         cache: false,
-				async: false,
+				async: true,
 				headers: {
 					Accept: 'application/json; charset=utf-8',
 					'Content-Type': 'application/json; charset=utf-8'
@@ -90,7 +90,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
       };
 
 			if (data) {
-				options.data = data;
+				options.data = JSON.stringify(data);
 			}
 
 			$.ajax(options)
