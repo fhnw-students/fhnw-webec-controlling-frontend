@@ -45,10 +45,9 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
      * Writes Project Name to input field
      */
     function onChangeWriteName(){
-        console.log(ProjectFormView.getScope().find('#pid-dropdown option:selected').val());
-        ApiService.getProject(ProjectFormView.getScope().find('#pid-dropdown option:selected').val()).then(function(project){
-            console.log(project['name']);
-        });
+        var text = ProjectFormView.getScope().find('#pid-dropdown option:selected').text();
+        text = text.split(' - ');
+        ProjectFormView.getScope().find('input[name="name"]').val(text[1]);
     }
 
     /**
@@ -101,6 +100,15 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                         }
                     ]
                 },
+                teamsize: {
+                    identifier: 'teamsize',
+                    rules:[
+                        {
+                            type: 'integer',
+                            prompt: 'Teamsize: Please enter a valid number'
+                        }
+                    ]
+                },
                 rangestart: {
                     identifier: 'rangestart',
                     rules: [
@@ -123,15 +131,16 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
             on: 'blur',
             onSuccess: function () {
                 var project = new Project({
-                    pid: ProjectFormView.getScope().find('input[name="pid"]').val(),
+                    pid: ProjectFormView.getScope().find('#pid-dropdown option:selected').val(),
                     name: ProjectFormView.getScope().find('input[name="name"]').val(),
                     weekload: ProjectFormView.getScope().find('input[name="weekload"]').val(),
                     maxhours: ProjectFormView.getScope().find('input[name="maxhours"]').val(),
+                    teamsize: ProjectFormView.getScope().find('input[name="teamsize"]').val(),
                     rangestart: ProjectFormView.getScope().find('input[name="rangestart"]').val(),
                     rangeend: ProjectFormView.getScope().find('input[name="rangeend"]').val(),
                     description: ProjectFormView.getScope().find('input[name="description"]').val()
                 });
-                project.save();
+                project.create();
                 return false;
             }
 
