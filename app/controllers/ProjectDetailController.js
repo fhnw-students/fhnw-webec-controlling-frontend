@@ -232,7 +232,9 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       project.getResourceTableData()
         .then(function(list){
           console.log(list);
-
+          ProjectDetailView.setListItems(list, function () {
+            console.log('done');
+          });
         })
         .catch(function (err) {
           console.error(err);

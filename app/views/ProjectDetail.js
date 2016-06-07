@@ -12,7 +12,8 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
    */
   return {
     render: render,
-    getScope: getScope
+    getScope: getScope,
+    setListItems: setListItems
   };
   ///////////////////////////////////////////////////////////
   /**
@@ -42,6 +43,25 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
   function afterRender() {
     $Scope.find('.graph-select').dropdown();
     $Scope.find('.settings-select').dropdown();
+  }
+  /**
+   * @param  {Array} list of the projects
+   * @param  {Function} done callback
+   */
+  function setListItems(list, done) {
+    templateService
+      .get('ProjectDetailTableRow.html')
+      .then(function (templateItem) {
+        var html = '';
+        for (var i = 0; i < list.length; i++) {
+          html += templateItem(list[i]);
+        }
+        $Scope.find('tbody > tr').remove();
+        $Scope.find('tbody').append(html);
+        if (done) {
+          done();
+        }
+      });
   }
 
 });
