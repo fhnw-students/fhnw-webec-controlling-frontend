@@ -80,7 +80,6 @@ define(['semantic', 'views/Login', 'services/AuthService'], function ($, LoginVi
       },
       on: 'blur',
       onSuccess: function (event, fields) {
-        console.log('onSuccess', event, fields);
         onLogin(fields.email, fields.password);
         return false;
       }
