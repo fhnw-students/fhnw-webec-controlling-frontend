@@ -34,7 +34,6 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       setTimeout(function () {
         Project.getAll()
           .then(function (projects) {
-            console.log(projects);
             list = projects;
             if (list && list.length > 0) {
               DashboardView.setListItems(list, function () {

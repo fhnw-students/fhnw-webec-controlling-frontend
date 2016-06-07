@@ -58,7 +58,9 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			if (path && !key) {
 				uri += '/' + path;
 			} else {
-				uri += '/' + key;
+				if (key) {
+					uri += '/' + key;
+				}
 			}
 		}
 		return uri;

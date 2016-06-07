@@ -48,7 +48,6 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    * @param  {Function} done callback
    */
   function setListItems(list, done) {
-    console.log(list[0].getData());
     templateService
       .get('DashboardItemTemplate.html')
       .then(function (templateItem) {
