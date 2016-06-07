@@ -92,16 +92,19 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     function removeProject() {
       setModalLoading(true);
       // $('.ui.basic.modal').modal('hide');
-      var after = function () {
+      var after = function (successful) {
         $('.ui.basic.modal').modal('hide');
         setModalLoading(false);
+        if (successful) {
+          window.location.hash = '#/dashboard';
+        }
       };
       project.remove()
         .then(function () {
-          after();
+          after(true);
         })
         .catch(function (err) {
-          after();
+          after(false);
         });
     }
     /**

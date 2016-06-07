@@ -1,7 +1,7 @@
 /**
  * @name ProjectModel
  */
-define(['services/ApiService'], function (ApiService) {
+define(['services/ApiService', 'jquery'], function (ApiService, $) {
   /**
    * Api object to the auth route
    */
@@ -61,7 +61,7 @@ define(['services/ApiService'], function (ApiService) {
   };
 
   Project.prototype.setData = function (data) {
-    this.data = data;
+    this.data = $.extend({}, this.data, data);
   };
 
   Project.prototype.save = function () {
