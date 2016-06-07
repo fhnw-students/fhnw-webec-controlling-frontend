@@ -22,15 +22,15 @@ define(['models/Project'], function (Project) {
    * @returns {Project}
    */
   function get() {
-    return new Project(JSON.parse(localStorage.getItem(localStorageKey)));
+    return localStorage.getItem(localStorageKey);
   }
   /**
    * Saves the selected project in the local storage
 	 *
    * @param  {Project} project
    */
-  function set(project) {
-    localStorage.setItem(localStorageKey, JSON.stringify(project.getData()));
+  function set(key) {
+    localStorage.setItem(localStorageKey, key);
   }
 	/**
 	 * Removes the selected project from the local storage.

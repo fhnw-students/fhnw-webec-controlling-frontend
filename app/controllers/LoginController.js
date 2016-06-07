@@ -1,7 +1,7 @@
 /**
  * @name LoginController
  */
-define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginView, ApiService) {
+define(['semantic', 'views/Login', 'services/AuthService'], function ($, LoginView, AuthService) {
   /**
    * Public API
    */
@@ -14,7 +14,6 @@ define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginVie
    */
   function initialize() {
     LoginView.render({}, function () {
-      console.log('render');
       afterRender();
     });
   }
@@ -40,10 +39,10 @@ define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginVie
   function onLogin(email, password) {
     hideMessageForWrongLogin();
     setPending(true);
-    ApiService.login(email, password)
+    AuthService.login(email, password)
       .then(function (res) {
         setPending(false);
-        window.location.hash = '#7dashboard';
+        window.location.hash = '#/dashboard';
       })
       .catch(function (err) {
         setPending(false);
@@ -54,7 +53,6 @@ define(['semantic', 'views/Login', 'services/ApiService'], function ($, LoginVie
    * Binds the form to the html
    */
   function bindForm() {
-    console.log(LoginView.getScope().find('.ui.form'));
     LoginView.getScope().find('.ui.form').form({
       fields: {
         email: {

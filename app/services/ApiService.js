@@ -1,125 +1,73 @@
 /**
  * @name ApiService
  */
-define(['jquery', 'services/SessionService', 'models/User', 'models/Project'], function ($, SessionService, User, Project) {
+define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	/**
 	 * This is the default jira backend uri
 	 */
 	var baseUrl = 'https://fhnw.w3tec.ch/api/public';
-	/**
-	 * Has some basic colors for the charts
-	 */
-	var colors = [
-		'#db2828',
-		'#f2711c',
-		'#fbbd08',
-		'#b5cc18',
-		'#21ba45',
-		'#00b5ad',
-		'#2185d0',
-		'#6435c9',
-		'#a333c8',
-		'#e03997',
-		'#a5673f',
-		'#767676',
-		'#1b1c1d',
-	];
   /**
    * Public API
    * All the returned function are available from outside
    */
-  return {
-		login: login,
-		logut: logut,
-		getAllProjects: getAllProjects,
-		getProjects: getProjects,
-		getProjectGraphData: getProjectGraphData
-  };
-  //////////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Saves the toke and tries to login to our backend.
-	 * @param  {string} username
-	 * @param  {string} password
-	 * @returns {Promise<User>}
-	 */
-	function login(username, password) {
-		return new Promise(function (resolve, reject) {
-			SessionService.activate(username, password);
-			request('/login', 'POST', {
-				username: username,
-				password: password
-			})
-				.then(function (res) {
-					SessionService.setMySelf(new User(res));
-					return resolve(SessionService.getMySelf());
-				})
-				.catch(function (err) {
-					SessionService.clearToken();
-					return reject(err);
-				});
-		});
-	}
-	/**
-	 * Destroys the auth token from the localstorage
-	 */
-	function logut() {
-		SessionService.clearToken();
-	}
-	/**
-	 * Request all jira projects of the user
-	 *
-	 * @returns {Promise<Object[]>} Collection of Jira projects
-	 */
-	function getAllProjects() {
-		return request('/all/projects');
-	}
-	/**
-	 * Request all my projects of the user
-	 *
-	 * @returns {Promise<Projects[]>} Collection of Jira projects
-	 */
-	function getProjects(key) {
-		return request('/projects' + ((key) ? '/' + key : ''))
-			.then(function (projects) {
-				return projects.map(function (project) {
-					return new Project(project);
-				})
-			});
-	}
-	/**
-	 * @param  {string} projectKey
-	 * @param  {string} graphName
-	 * @returns {Promise<Object>}
-	 */
-	function getProjectGraphData(projectKey, graphName) {
-		return request('/projects/' + projectKey + '/' + graphName + '/graph')
-			.then(function (data) {
-				var indexColor = 0;
-				data.datasets = data.datasets.map(function (dataset) {
-					dataset.backgroundColor = 'transparent';
-					dataset.borderColor = colors[indexColor++];
-					dataset.fill = false;
-					return dataset;
-				});
-				return data;
-			});
+	return function (route) {
+		return {
+			create: create,
+			read: read,
+			update: update,
+			destroy: destroy
+		};
 
+		function create(path, data) {
+			path = buildRoute(route, path);
+			return request(path, 'POST', data);
+		}
+
+		function read(path, key) {
+			path = buildRoute(route, path, key);
+			return request(path, 'GET');
+		}
+
+		function update(path, key, data) {
+			path = buildRoute(route, path, key);
+			return request(path, 'PUT', data);
+		}
+
+		function destroy(path, key) {
+			path = buildRoute(route, path, key);
+			return request(path, 'DELETE');
+		}
+
+		function custom(path, method) {
+			if (!path) {
+				path = '';
+			}
+			return request(route + path, method || 'GET');
+		}
+	};
+	//////////////////////////////////////////////////////////////////////////////////
+	function buildRoute(route, path, key) {
+		var uri = route;
+		if (path && path.charAt(0) === '/') {
+			uri += path;
+			if (key) {
+				uri += '/' + key;
+			}
+		} else {
+			if (path && !key) {
+				uri += '/' + path;
+			} else {
+				uri += '/' + key;
+			}
+		}
+		return uri;
 	}
 	/**
 	 * Makes a requst to the jira api backend
 	 *
 	 * @param  {string} url - rest api path
-	 * @param  {string} key - identifier
-	 * @returns  {Promise<Object[]>} Collection
-	 */
-	function request(url, key) {
-		var url = jiraRoute + url + ((key === undefined) ? '' : '/' + key);
-		return request(url);
-	}
-	/**
-	 * Makes a requst to the jira api backend
-	 *
-	 * @param  {string} url - rest api path
+	 * @param  {string} method - http metohd (GET, POST, PUT, DELETE)
+	 * @param  {any} data - payload
 	 * @returns {Promise<Object[]>} Collection
 	 */
 	function request(url, method, data) {

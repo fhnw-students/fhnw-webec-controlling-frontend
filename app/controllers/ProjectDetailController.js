@@ -1,8 +1,8 @@
 /**
  * @name  ProjectDetailController
  */
-define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/ProjectStoreService', 'jquery'],
-  function (ProjectDetailView, $, ApiService, ProjectStoreService, jQuery) {
+define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models/Project'],
+  function (ProjectDetailView, $, ProjectStoreService, Project) {
     /**
      * Selected Project
      */
@@ -22,9 +22,8 @@ define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/Proj
      * Initialize this controller and renders the view
      */
     function initialize() {
-      project = ProjectStoreService.get();
       ProjectDetailView.render({
-        title: project.getData().name
+        title: ''
       }, function () {
         afterRender();
       });
@@ -33,22 +32,77 @@ define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/Proj
      * Life cycle hooke after rendering the view
      */
     function afterRender() {
-      setGraphSelectItem();
-      bindEvents();
-      loadGraphData(getSelectedGraph());
+      setErrorMessage(false);
+      setGraphLoading(true);
+      // setTableLoading(true);
+      let key = ProjectStoreService.get();
+      Project.get(key)
+        .then(function (response) {
+          project = response;
+          ProjectDetailView.getScope().find('.page-title').html(project.getData().name);
+          setGraphSelectItem();
+          bindEvents();
+          loadGraphData(getSelectedGraph());
+        })
+        .catch(function (err) {
+          setErrorMessage(true);
+        });
     }
     /**
      * Binds all events to the view
      */
     function bindEvents() {
       getGraphSelectElement().find('a').on('click', onClickGraphSelectItem)
+      getSettingsSelectElement().find('div.item').on('click', onClickSettingsSelectItem)
     }
     /**
      * Callback after a select item was selected
      */
     function onClickGraphSelectItem() {
-      setGraphSelectItem(jQuery(this));
+      setGraphSelectItem($(this));
       loadGraphData(getSelectedGraph());
+    }
+    /**
+     * Callback after a select item was selected
+     */
+    function onClickSettingsSelectItem() {
+      switch ($(this).data('action')) {
+        case 'update':
+          // TODO: link to the project form component
+          break;
+        case 'destroy':
+          openDestroyModal();
+          break;
+      }
+    }
+    /**
+     */
+    function openDestroyModal() {
+      $('.ui.basic.modal')
+        .modal({
+          closable: false,
+          onApprove: function () {
+            removeProject();
+          }
+        })
+        .modal('show');
+    }
+    /**
+     */
+    function removeProject() {
+      setModalLoading(true);
+      // $('.ui.basic.modal').modal('hide');
+      var after = function () {
+        $('.ui.basic.modal').modal('hide');
+        setModalLoading(false);
+      };
+      project.remove()
+        .then(function () {
+          after();
+        })
+        .catch(function (err) {
+          after();
+        });
     }
     /**
      * Retruns the drop-down element of the chart selection
@@ -57,6 +111,14 @@ define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/Proj
      */
     function getGraphSelectElement() {
       return ProjectDetailView.getScope().find('.graph-select');
+    }
+    /**
+     * Retruns the drop-down element of the settings selection
+     *
+     * @returns {DOMElement} - DropDown Element
+     */
+    function getSettingsSelectElement() {
+      return ProjectDetailView.getScope().find('.settings-select');
     }
     /**
      * Returns the selected graph's name
@@ -73,7 +135,7 @@ define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/Proj
      */
     function setGraphSelectItem(clickedSelectItem) {
       if (!clickedSelectItem) {
-        clickedSelectItem = jQuery(getGraphSelectElement().find('a')[0]);
+        clickedSelectItem = $(getGraphSelectElement().find('a')[0]);
       }
       getGraphSelectElement().data('selected', clickedSelectItem.data('graph'));
       getGraphSelectElement().find('.selected-graph-text').html(clickedSelectItem.html());
@@ -84,32 +146,64 @@ define(['views/ProjectDetail', 'semantic', 'services/ApiService', 'services/Proj
      * @param  {string} - name of the graph
      */
     function loadGraphData(graphName) {
-      showGraphLoading();
+      setGraphLoading(true);
       setTimeout(function () {
-        ApiService.getProjectGraphData(project.getData().pid, graphName)
+        project.getGraphData(graphName)
           .then(function (data) {
             if (graph) {
               graph.destroy();
             }
-            graph = new Chart(jQuery('#graph-container'), {
+            graph = new Chart($('#graph-container'), {
               type: 'line',
               data: data
             });
-            hideGraphLoading();
+            setGraphLoading(false);
+          }).catch(function (err) {
+            console.error(err);
+            setErrorMessage(true);
+            setGraphLoading(false);
           });
       }, 100);
     }
     /**
      * Shows a loading dimmer over the graph's area
      */
-    function showGraphLoading() {
-      ProjectDetailView.getScope().find('section.graph .dimmer').addClass('active');
+    function setGraphLoading(isVisible) {
+      var element = ProjectDetailView.getScope().find('section.graph .dimmer');
+      setDimmer(element, isVisible);
     }
     /**
-     * Hides a loading dimmer over the graph's area
+     * Shows a loading dimmer over the modal's area
      */
-    function hideGraphLoading() {
-      ProjectDetailView.getScope().find('section.graph .dimmer').removeClass('active');
+    function setModalLoading(isVisible) {
+      var element = ProjectDetailView.getScope().find('.destroy-project.dimmer');
+      setDimmer(element, isVisible);
+    }
+    /**
+     * Shows and hides the dimmers
+     *
+     * @param  {DOMElement} element
+     * @param  {boolean} isActive
+     */
+    function setDimmer(element, isActive) {
+      if (isActive) {
+        element.addClass('active');
+      } else {
+        element.removeClass('active');
+      }
+    }
+    /**
+     * Sets a error message to show the user that something went wrong
+     *
+     * @param  {boolean} hasFailed
+     */
+    function setErrorMessage(hasFailed) {
+      var element = ProjectDetailView.getScope().find('.error-message');
+      if (hasFailed) {
+        element.removeClass('hidden');
+      } else {
+        element.addClass('hidden');
+      }
     }
 
   });

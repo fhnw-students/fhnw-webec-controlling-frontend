@@ -1,7 +1,7 @@
 /**
  * @name ProjectDetailView
  */
-define(['jquery', 'services/TemplateService'], function ($, templateService) {
+define(['semantic', 'services/TemplateService'], function ($, templateService) {
   /**
    * Stores the jquery element of this view
    */
@@ -41,6 +41,7 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    */
   function afterRender() {
     $Scope.find('.graph-select').dropdown();
+    $Scope.find('.settings-select').dropdown();
   }
 
 });

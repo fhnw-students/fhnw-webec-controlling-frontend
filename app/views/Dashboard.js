@@ -12,7 +12,8 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    */
   return {
     render: render,
-    getScope: getScope
+    getScope: getScope,
+    setListItems: setListItems
   };
   ///////////////////////////////////////////////////////////
   /**
@@ -41,6 +42,26 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
    */
   function afterRender() {
     ;
+  }
+  /**
+   * @param  {Array} list of the projects
+   * @param  {Function} done callback
+   */
+  function setListItems(list, done) {
+    console.log(list[0].getData());
+    templateService
+      .get('DashboardItemTemplate.html')
+      .then(function (templateItem) {
+        var html = '';
+        for (var i = 0; i < list.length; i++) {
+          html += templateItem(list[i]);
+        }
+        $Scope.find('.project-list > .item').remove();
+        $Scope.find('.project-list').append(html);
+        if (done) {
+          done();
+        }
+      });
   }
 
 });

@@ -18,17 +18,33 @@
   <!-- Content -->
   <div class="container">
 
-    <div class="ui icon message">
+    <!-- Message if no project is registered -->
+    <div class="ui icon message hidden is-empty-message">
       <i class="info circle icon"></i>
       <div class="content">
         <div class="header">
           No project registered yet!
         </div>
-        <p>Please add a new project to enter the current controlling</p>
+        <p>Please add a new project to enter the current controlling.</p>
       </div>
     </div>
 
-    <a href="#/detail/BBVESDA"></a>
+    <!-- Message if something went wrong -->
+    <div class="ui negative message error-message">
+      <i class="close icon"></i>
+      <div class="header">Something went wrong!</div>
+      <p>Please try again or contact your administrator</p>
+    </div>
 
+    <!-- Project Grid -->
+    <div class="ui segment">
+      <div class="ui items project-list"></div>
+    </div>
+
+  </div>
+
+  <!-- Spinner if request is pending -->
+  <div class="ui page dimmer">
+    <div class="ui text loader">Loading...</div>
   </div>
 </section>
