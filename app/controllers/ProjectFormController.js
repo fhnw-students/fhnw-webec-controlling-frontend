@@ -3,7 +3,7 @@
  */
 define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStoreService'], function (ProjectFormView, $, Project, ProjectStoreService) {
     /**
-     *
+     * Variable current project
      */
     var project;
     /**
@@ -18,7 +18,8 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
      */
     function initialize() {
         ProjectFormView.render({
-            title: isEdit() ? 'Edit' : 'Create'
+            title: isEdit() ? 'Edit' : 'Create',
+            backUrl: isEdit() ? '#/detail' : '#/dashboard'
         }, function () {
             afterRender();
         });
@@ -50,9 +51,9 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
             setErrorMessage(false);
             Project.get(key)
                 .then(function (_project) {
-                    setDimmer(false);
                     project = _project;
-                    console.log(project);
+                    setFormProjectData();
+                    setDimmer(false);
                 })
                 .catch(function (err) {
                     console.error(err);
@@ -89,6 +90,20 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
     }
 
     /**
+     * Sets data in form for editing project
+     */
+    function setFormProjectData(){
+        ProjectFormView.getScope().find('input[name="pid"]').val(project['data']['pid']);
+        ProjectFormView.getScope().find('input[name="name"]').val(project['data']['name']);
+        ProjectFormView.getScope().find('input[name="weekload"]').val(project['data']['weekload']);
+        ProjectFormView.getScope().find('input[name="maxhours"]').val(project['data']['maxhours']);
+        ProjectFormView.getScope().find('input[name="teamSize"]').val(project['data']['teamSize']);
+        ProjectFormView.getScope().find('input[name="rangestart"]').val(project['data']['rangestart']);
+        ProjectFormView.getScope().find('input[name="rangeend"]').val(project['data']['rangeend']);
+        ProjectFormView.getScope().find('input[name="description"]').val(project['data']['description']);
+    }
+
+    /**
      * Sets the loading dimmer over the whole page
      *
      * @param  {boolean} isPending
@@ -120,14 +135,19 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
      * Binds all fields of the form to the view
      */
     function bindForm() {
-        ProjectFormView.getScope().find('#pid-dropdown').children('option').remove();
-        ProjectFormView.getScope().find('#pid-dropdown').append('<option value="">JIRA Project Key</option>');
-        Project.getAllFromJira().then(function (projects) {
-            for (i = 0; i < projects.length; i++) {
-                ProjectFormView.getScope().find('#pid-dropdown').append('<option value="' + projects[i]['key'] + '">' + projects[i]['key'] + ' - ' + projects[i]['name'] + '</option>');
-            }
-        });
-        ProjectFormView.getScope().find('#pid-dropdown').dropdown();
+        if (isEdit()){
+            ProjectFormView.getScope().find('#pid-dropdown').after('<input type="text" name="pid" disabled>');
+            ProjectFormView.getScope().find('#pid-dropdown').remove();
+        } else {
+            ProjectFormView.getScope().find('#pid-dropdown').children('option').remove();
+            ProjectFormView.getScope().find('#pid-dropdown').append('<option value="">JIRA Project Key</option>');
+            Project.getAllFromJira().then(function (projects) {
+                for (var i = 0; i < projects.length; i++) {
+                    ProjectFormView.getScope().find('#pid-dropdown').append('<option value="' + projects[i]['key'] + '">' + projects[i]['key'] + ' - ' + projects[i]['name'] + '</option>');
+                }
+            });
+            ProjectFormView.getScope().find('#pid-dropdown').dropdown();
+        }
         ProjectFormView.getScope().find('.ui.form').form({
             fields: {
                 pid: {
