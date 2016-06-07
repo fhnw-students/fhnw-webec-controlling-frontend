@@ -6,7 +6,7 @@
             <i class="chevron left icon"></i> Back
         </a>
 
-        <h1>JIRA Controlling - Add Project</h1>
+        <h1>JIRA Controlling - {{title}} Project</h1>
 
         <div class="right menu">
             <a class="active green item noradius save">
@@ -44,7 +44,7 @@
             </div>
             <div class="field">
                 <label>Teamsize</label>
-                <input type="text" name="teamsize" placeholder="enter a number">
+                <input type="text" name="teamSize" placeholder="enter a number">
             </div>
             <div class="field">
                 <label>Project Range</label>
@@ -64,6 +64,17 @@
                 <textarea name="description"></textarea>
             </div>
         </form>
+    </div>
 
+    <!-- Message if something went wrong -->
+    <div class="ui negative message error-message hidden">
+        <i class="close icon"></i>
+        <div class="header">Something went wrong!</div>
+        <p>Please try again or contact your administrator</p>
+    </div>
+
+    <!-- Spinner if request is pending -->
+    <div class="ui page dimmer hidden">
+        <div class="ui text loader">Loading...</div>
     </div>
 </section>

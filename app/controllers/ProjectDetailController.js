@@ -35,7 +35,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       setErrorMessage(false);
       setGraphLoading(true);
       // setTableLoading(true);
-      let key = ProjectStoreService.get();
+      var key = ProjectStoreService.get();
       Project.get(key)
         .then(function (response) {
           project = response;
@@ -68,7 +68,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     function onClickSettingsSelectItem() {
       switch ($(this).data('action')) {
         case 'update':
-          // TODO: link to the project form component
+          window.location.hash = '#/projectform/edit';
           break;
         case 'destroy':
           openDestroyModal();
