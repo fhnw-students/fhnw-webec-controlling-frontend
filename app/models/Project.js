@@ -100,6 +100,10 @@ define(['services/ApiService'], function (ApiService) {
     create: function (data) {
       return new Project(data);
     },
+    getAllFromJira: function () {
+      return api
+        .custom('/all/projects');
+    },
     getAll: function () {
       return api
         .read()
