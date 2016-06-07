@@ -130,7 +130,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
             },
             on: 'blur',
             onSuccess: function () {
-                var project = new Project({
+                var project = Project.create({
                     pid: ProjectFormView.getScope().find('#pid-dropdown option:selected').val(),
                     name: ProjectFormView.getScope().find('input[name="name"]').val(),
                     weekload: ProjectFormView.getScope().find('input[name="weekload"]').val(),
@@ -140,7 +140,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project'], function (ProjectFor
                     rangeend: ProjectFormView.getScope().find('input[name="rangeend"]').val(),
                     description: ProjectFormView.getScope().find('input[name="description"]').val()
                 });
-                project.create();
+                project.save();
                 return false;
             }
 

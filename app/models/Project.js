@@ -64,12 +64,12 @@ define(['services/ApiService'], function (ApiService) {
     this.data = data;
   };
 
-  Project.prototype.create = function () {
-    return api.create(this.data);
-  };
-
-  Project.prototype.update = function () {
-    return api.update(this.data.pid, this.data);
+  Project.prototype.save = function () {
+    if(this.data.uid){
+        return api.update(this.data.pid, this.data);
+    }else{
+        return api.create(this.data);
+    }
   };
 
   Project.prototype.remove = function () {
@@ -92,7 +92,7 @@ define(['services/ApiService'], function (ApiService) {
         });
         return data;
       });
-  }
+  };
   /**
    * Public API
    */

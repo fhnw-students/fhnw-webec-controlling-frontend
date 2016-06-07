@@ -19,7 +19,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			custom: custom
 		};
 
-		function create(path, data) {
+		function create(data, path) {
 			path = buildRoute(route, path);
 			return request(path, 'POST', data);
 		}
@@ -29,7 +29,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			return request(path, 'GET');
 		}
 
-		function update(path, key, data) {
+		function update(key, data, path) {
 			path = buildRoute(route, path, key);
 			return request(path, 'PUT', data);
 		}
