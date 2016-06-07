@@ -24,10 +24,10 @@ define(['jquery', 'services/ApiService', 'services/SessionService', 'models/User
 	function login(username, password) {
 		return new Promise(function (resolve, reject) {
 			SessionService.activate(username, password);
-			api.create('/login', {
+			api.create({
 				username: username,
 				password: password
-			})
+			}, '/login')
 				.then(function (res) {
 					SessionService.setMySelf(new User(res));
 					return resolve(SessionService.getMySelf());
