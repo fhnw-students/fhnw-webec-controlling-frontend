@@ -36,6 +36,15 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
         Project.getAll()
           .then(function (projects) {
             list = projects;
+
+            list = list.map(function (item) {
+              var diff = getDaysBetween(new Date(item.getData().rangestart), new Date(item.getData().rangeend));
+              var diffCurrent = getDaysBetween(new Date(item.getData().rangestart), new Date());
+              item.statusTime = (100 / diff * diffCurrent).toFixed(0);
+              item.statusTimeSpent = (100 / (item.getData().maxhours * item.getData().teamSize) * item.getData().timeSpent).toFixed(0);
+              return item;
+            });
+
             if (list && list.length > 0) {
               DashboardView.setListItems(list, function () {
                 DashboardView.getScope().find('.project-list > .item').on('click', onClickProject);
@@ -124,6 +133,25 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       } else {
         element.addClass('hidden');
       }
+    }
+    /**
+     * @param  {any} date1
+     * @param  {any} date2
+     */
+    function getDaysBetween(date1, date2) {
+
+      // The number of milliseconds in one day
+      var ONE_DAY = 1000 * 60 * 60 * 24
+
+      // Convert both dates to milliseconds
+      var date1_ms = date1.getTime()
+      var date2_ms = date2.getTime()
+
+      // Calculate the difference in milliseconds
+      var difference_ms = Math.abs(date1_ms - date2_ms)
+
+      // Convert back to days and return
+      return Math.round(difference_ms / ONE_DAY)
     }
 
   });
