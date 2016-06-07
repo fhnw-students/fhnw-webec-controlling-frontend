@@ -42,7 +42,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			if (!path) {
 				path = '';
 			}
-			return request(route + path, method || 'GET');
+			return request(path, method || 'GET');
 		}
 	};
 	//////////////////////////////////////////////////////////////////////////////////
