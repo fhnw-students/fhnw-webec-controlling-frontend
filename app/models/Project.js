@@ -94,6 +94,14 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
       });
   };
   /**
+   * gets resource information for the table
+   *
+   * @returns {Promise<Object[]>}
+   */
+  Project.prototype.getResourceTableData = function(){
+    return api.read('/' + this.data.pid + '/resources/table')
+  };
+  /**
    * Public API
    */
   return {
@@ -121,4 +129,8 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
         });
     }
   };
+
+
+
+
 });

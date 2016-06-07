@@ -28,6 +28,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
         afterRender();
       });
     }
+
     /**
      * Life cycle hooke after rendering the view
      */
@@ -43,11 +44,13 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
           setGraphSelectItem();
           bindEvents();
           loadGraphData(getSelectedGraph());
+          loadResourceTable();
         })
         .catch(function (err) {
           setErrorMessage(true);
         });
     }
+
     /**
      * Binds all events to the view
      */
@@ -55,6 +58,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       getGraphSelectElement().find('a').on('click', onClickGraphSelectItem)
       getSettingsSelectElement().find('div.item').on('click', onClickSettingsSelectItem)
     }
+
     /**
      * Callback after a select item was selected
      */
@@ -62,6 +66,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       setGraphSelectItem($(this));
       loadGraphData(getSelectedGraph());
     }
+
     /**
      * Callback after a select item was selected
      */
@@ -75,6 +80,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
           break;
       }
     }
+
     /**
      */
     function openDestroyModal() {
@@ -87,6 +93,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
         })
         .modal('show');
     }
+
     /**
      */
     function removeProject() {
@@ -107,6 +114,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
           after(false);
         });
     }
+
     /**
      * Retruns the drop-down element of the chart selection
      *
@@ -115,6 +123,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     function getGraphSelectElement() {
       return ProjectDetailView.getScope().find('.graph-select');
     }
+
     /**
      * Retruns the drop-down element of the settings selection
      *
@@ -123,6 +132,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     function getSettingsSelectElement() {
       return ProjectDetailView.getScope().find('.settings-select');
     }
+
     /**
      * Returns the selected graph's name
      *
@@ -131,6 +141,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     function getSelectedGraph() {
       return getGraphSelectElement().data('selected');
     }
+
     /**
      * Sets the new chart element to the dom
      *
@@ -143,6 +154,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       getGraphSelectElement().data('selected', clickedSelectItem.data('graph'));
       getGraphSelectElement().find('.selected-graph-text').html(clickedSelectItem.html());
     }
+
     /**
      * Loads the data for the given chart
      *
@@ -162,12 +174,13 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
             });
             setGraphLoading(false);
           }).catch(function (err) {
-            console.error(err);
-            setErrorMessage(true);
-            setGraphLoading(false);
-          });
+          console.error(err);
+          setErrorMessage(true);
+          setGraphLoading(false);
+        });
       }, 100);
     }
+
     /**
      * Shows a loading dimmer over the graph's area
      */
@@ -175,6 +188,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       var element = ProjectDetailView.getScope().find('section.graph .dimmer');
       setDimmer(element, isVisible);
     }
+
     /**
      * Shows a loading dimmer over the modal's area
      */
@@ -182,6 +196,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       var element = ProjectDetailView.getScope().find('.destroy-project.dimmer');
       setDimmer(element, isVisible);
     }
+
     /**
      * Shows and hides the dimmers
      *
@@ -195,6 +210,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
         element.removeClass('active');
       }
     }
+
     /**
      * Sets a error message to show the user that something went wrong
      *
@@ -207,6 +223,21 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
       } else {
         element.addClass('hidden');
       }
+    }
+
+    /**
+     * Loads the Resource Table
+     */
+    function loadResourceTable() {
+      project.getResourceTableData()
+        .then(function(list){
+          console.log(list);
+
+        })
+        .catch(function (err) {
+          console.error(err);
+          setErrorMessage(true);
+        });
     }
 
   });
