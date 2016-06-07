@@ -31,6 +31,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ApiService'
      */
     function bindEvents() {
         ProjectFormView.getScope().find('.save').on('click', onClickSave);
+        ProjectFormView.getScope().find('#pid-dropdown').on('change', onChangeWriteName);
     }
 
     /**
@@ -38,6 +39,16 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ApiService'
      */
     function onClickSave(){
         ProjectFormView.getScope().find('.ui.form').submit();
+    }
+
+    /**
+     * Writes Project Name to input field
+     */
+    function onChangeWriteName(){
+        console.log(ProjectFormView.getScope().find('#pid-dropdown option:selected').val());
+        ApiService.getProject(ProjectFormView.getScope().find('#pid-dropdown option:selected').val()).then(function(project){
+            console.log(project['name']);
+        });
     }
 
     /**
