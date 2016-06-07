@@ -15,6 +15,10 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
       controller: 'LoginController'
     },
     {
+      hash: '#/projectform',
+      controller: 'ProjectFormController'
+    },
+    {
       hash: '#/detail',
       controller: 'ProjectDetailController'
     },
