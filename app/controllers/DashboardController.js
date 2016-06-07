@@ -30,6 +30,7 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       setDimmer(true);
       setEmptyMessage(false);
       setErrorMessage(false);
+      setProjectListSegment(false);
       bindEvents();
       setTimeout(function () {
         Project.getAll()
@@ -39,6 +40,7 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
               DashboardView.setListItems(list, function () {
                 DashboardView.getScope().find('.project-list > .item').on('click', onClickProject);
               });
+              setProjectListSegment(true);
             } else {
               setEmptyMessage(true);
             }
@@ -90,7 +92,7 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
      */
     function setEmptyMessage(isEmpty) {
       var element = DashboardView.getScope().find('.is-empty-message');
-      showMessageBox(element, isEmpty);
+      showContainer(element, isEmpty);
     }
     /**
      * Sets a error message to show the user that something went wrong
@@ -99,7 +101,16 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
      */
     function setErrorMessage(hasFailed) {
       var element = DashboardView.getScope().find('.error-message');
-      showMessageBox(element, hasFailed);
+      showContainer(element, hasFailed);
+    }
+    /**
+     *
+     *
+     * @param  {boolean} hasFailed
+     */
+    function setProjectListSegment(hasFailed) {
+      var element = DashboardView.getScope().find('.project-list-segment');
+      showContainer(element, hasFailed);
     }
     /**
      * Shows and hides the messages
@@ -107,7 +118,7 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
      * @param  {DOMElement} element
      * @param  {boolean} isVisible
      */
-    function showMessageBox(element, isVisible) {
+    function showContainer(element, isVisible) {
       if (isVisible) {
         element.removeClass('hidden');
       } else {

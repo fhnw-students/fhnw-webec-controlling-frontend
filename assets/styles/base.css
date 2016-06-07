@@ -9,6 +9,10 @@ main {
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 section.view {
   display: flex;
   flex: 1;
