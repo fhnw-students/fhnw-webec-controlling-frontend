@@ -1,6 +1,20 @@
+
+
 <tr>
     <td class="collapsing">{{displayName}}</td>
-    <td>Progress Bar</td>
+    <td>
+        <script>
+            $('#progress').progress({
+                percent: {hours}
+            });
+        </script>
+        <div class="ui indicating progress" id="progress">
+            <div class="bar">
+                <div class="progress">{{hours}}</div>
+            </div>
+            <div class="label">Funding</div>
+        </div>
+    </td>
     <td class="right aligned collapsing">{{hours}}h</td>
     <td class="right aligned collapsing">{{difference}}h</td>
 </tr>
