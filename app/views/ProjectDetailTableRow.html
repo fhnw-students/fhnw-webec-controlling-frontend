@@ -3,14 +3,9 @@
 <tr>
     <td class="collapsing">{{displayName}}</td>
     <td>
-        <script>
-            $('#progress').progress({
-                percent: {hours}
-            });
-        </script>
         <div class="ui indicating progress" id="progress">
             <div class="bar">
-                <div class="progress">{{hours}}</div>
+                <div class="progress">{{relWorkload}}</div>
             </div>
             <div class="label">Funding</div>
         </div>
@@ -18,3 +13,10 @@
     <td class="right aligned collapsing">{{hours}}h</td>
     <td class="right aligned collapsing">{{difference}}h</td>
 </tr>
+
+<script data-relValue="relativeWorkload">{{hours}}
+
+$('#progress').progress({
+    percent: 13
+});
+</script>
