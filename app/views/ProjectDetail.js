@@ -1,7 +1,7 @@
 /**
  * @name ProjectDetailView
  */
-define(['semantic', 'services/TemplateService'], function ($, templateService) {
+define(['semantic', 'services/TemplateService', 'jquery'], function ($, templateService, jQuery) {
   /**
    * Stores the jquery element of this view
    */
@@ -22,6 +22,7 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
   function getScope() {
     return $Scope;
   }
+
   /**
    * Renders this view
    *
@@ -37,6 +38,7 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
         done($Scope);
       });
   }
+
   /**
    * Life cycle hook. Is triggered after rendering the view
    */
@@ -44,6 +46,7 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
     $Scope.find('.graph-select').dropdown();
     $Scope.find('.settings-select').dropdown();
   }
+
   /**
    * @param  {Array} list of the projects
    * @param  {Function} done callback
@@ -58,6 +61,20 @@ define(['semantic', 'services/TemplateService'], function ($, templateService) {
         }
         $Scope.find('tbody > tr').remove();
         $Scope.find('tbody').append(html);
+
+        $rowsProgress = $Scope.find('tbody > tr .ui.progress');
+        var element;
+        var value;
+        for (var i = 0; i < $rowsProgress.length; i++) {
+          element = jQuery($rowsProgress[i]);
+          if (element.data('percent')) {
+            value = parseInt(element.data('percent').toFixed(0), 10);
+            element.progress({
+              percent: value
+            });
+          }
+        }
+
         if (done) {
           done();
         }

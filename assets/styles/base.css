@@ -54,3 +54,7 @@ nav > h1 {
   display: flex;
   margin-left: auto;
 }
+
+.ui.progress{
+  margin-bottom: 0 !important;
+}

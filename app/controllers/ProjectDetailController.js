@@ -230,8 +230,11 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
      */
     function loadResourceTable() {
       project.getResourceTableData()
-        .then(function(list){
-          console.log(list);
+        .then(function (list) {
+          list = list.map(function (item) {
+            item.relWorkload = parseInt(item.relWorkload.toFixed(0), 10);
+            return item;
+          });
           ProjectDetailView.setListItems(list, function () {
             console.log('done');
           });
