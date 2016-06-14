@@ -8,7 +8,7 @@ charts and tables.
 
 #Project
 ##Big Picture
-![Big Picture](BigPicture.png)
+![Big Picture](BigPictureDiagram.png)
 
 ##API's
 - [JIRA API](https://docs.atlassian.com/jira/REST/latest/#api/2/)
