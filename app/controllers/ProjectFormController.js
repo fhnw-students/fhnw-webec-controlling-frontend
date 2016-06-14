@@ -103,7 +103,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
         ProjectFormView.getScope().find('input[name="teamSize"]').val(project['data']['teamSize']);
         ProjectFormView.getScope().find('input[name="rangestart"]').val(project['data']['rangestart']);
         ProjectFormView.getScope().find('input[name="rangeend"]').val(project['data']['rangeend']);
-        ProjectFormView.getScope().find('input[name="description"]').val(project['data']['description']);
+        ProjectFormView.getScope().find('textarea[name="description"]').text(project['data']['description']);
     }
 
     /**
@@ -227,7 +227,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
                     teamSize: ProjectFormView.getScope().find('input[name="teamSize"]').val(),
                     rangestart: ProjectFormView.getScope().find('input[name="rangestart"]').val(),
                     rangeend: ProjectFormView.getScope().find('input[name="rangeend"]').val(),
-                    description: ProjectFormView.getScope().find('textarea[name="description"]').text()
+                    description: ProjectFormView.getScope().find('textarea[name="description"]').val()
                 });
                 project.save()
                     .then(function () {
