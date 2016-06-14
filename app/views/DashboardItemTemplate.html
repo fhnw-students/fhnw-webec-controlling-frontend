@@ -1,0 +1,36 @@
+<a class="item" data-key="{{data.pid}}">
+  <div class="content">
+    <div class="header">{{data.name}} <i>({{data.pid}})</i></div>
+    <div class="meta">
+      <span class="stay">{{display.rangestart}}</span>
+      <span class="stay">-</span>
+      <span class="stay">{{display.rangeend}}</span>
+    </div>
+    <div class="body">
+      <div class="description">
+        <p>{{data.description}}</p>
+      </div>
+
+      <div class="ui statistics">
+        <div class="blue statistic">
+          <div class="value">
+            {{statusTime}}%
+          </div>
+          <div class="label">
+            Time
+          </div>
+        </div>
+
+        <div class="violet statistic">
+          <div class="value">
+            {{statusTimeSpent}}%
+          </div>
+          <div class="label">
+            Resources
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</a>

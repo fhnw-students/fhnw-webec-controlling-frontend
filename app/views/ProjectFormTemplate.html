@@ -1,0 +1,80 @@
+<section id="projectform-view" class="view">
+
+    <!-- Header -->
+    <nav class="ui inverted large stackable compact menu">
+        <a class="item" href="{{backUrl}}">
+            <i class="chevron left icon"></i> Back
+        </a>
+
+        <h1>JIRA Controlling - {{title}} Project</h1>
+
+        <div class="right menu">
+            <a class="active green item noradius save">
+                <i class="checkmark icon"></i> Save
+            </a>
+        </div>
+    </nav>
+
+    <!-- Spinner if request is pending -->
+    <div class="ui page dimmer hidden">
+        <div class="ui text loader">Loading...</div>
+    </div>
+
+
+    <!-- Content -->
+    <div class="container">
+
+        <!-- Message if something went wrong -->
+        <div class="ui negative message error-message hidden">
+            <div class="header">Something went wrong!</div>
+            <p>Please try again or contact your administrator</p>
+        </div>
+
+        <form class="ui form" autocomplete="off">
+            <div class="ui error message"></div>
+
+            <div class="field">
+                <label>JIRA Project Key</label>
+
+                <select class="ui dropdown" name="pid" id="pid-dropdown">
+                    <option value="">JIRA Project Key</option>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="enter a name for the project">
+            </div>
+            <div class="field">
+                <label>Week Load (in hours)</label>
+                <input type="text" name="weekload" placeholder="enter a number between 0 and 168">
+            </div>
+            <div class="field">
+                <label>Max Working Hours Per Person</label>
+                <input type="text" name="maxhours" placeholder="enter a number">
+            </div>
+            <div class="field">
+                <label>Teamsize</label>
+                <input type="text" name="teamSize" placeholder="enter a number">
+            </div>
+            <div class="field">
+                <label>Project Range</label>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Start Date</label>
+                        <input type="date" name="rangestart" placeholder="Start Date">
+                    </div>
+                    <div class="field">
+                        <label>End Date</label>
+                        <input type="date" name="rangeend" placeholder="End Date">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+        </form>
+    </div>
+</section>

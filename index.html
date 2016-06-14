@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo.png" />
+    <title>JIRA-Conrolling</title>
+
+    <!-- 3rd party libs -->
+    <link rel="stylesheet" type="text/css" href="node_modules/semantic-ui-css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css" />
+
+    <!-- our stlyes -->
+    <link rel="stylesheet" type="text/css" href="assets/styles/base.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/login.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/projectform.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/modal.css" />
+
+</head>
+
+<body>
+
+    <main></main>
+
+    <!-- requirejs config -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
+    <script type="text/javascript">
+        requirejs.config({
+            baseUrl: 'app',
+            paths: {
+                jquery: '../node_modules/jquery/dist/jquery',
+                semantic: '../node_modules/semantic-ui-css/semantic',
+                Handlebars: '../node_modules/handlebars/dist/handlebars'
+            }
+        });
+    </script>
+
+    <!-- main app entry -->
+    <script data-main="app/main" type="text/javascript" src="app/App.js"></script>
+
+</body>
+
+</html>

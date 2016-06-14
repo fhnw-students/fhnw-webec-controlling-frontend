@@ -1,0 +1,24 @@
+#dashboard-view .project-list .body {
+  display: flex;
+  flex-direction: row;
+}
+
+#dashboard-view .project-list .description {
+  flex: 1;
+  color: rgba(0, 0, 0, 0.87);
+  padding-right: 40px;
+}
+
+#dashboard-view .project-list .description p {
+  white-space: pre;
+}
+
+#dashboard-view .project-list .description:hover {
+	color: rgba(0, 0, 0, 0.87);
+}
+
+#dashboard-view .project-list .statistics {
+  min-width: 250px;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,15 @@
+#login-view {
+  background-color: #DADADA;
+}
+
+#login-view .image {
+  margin-top: -60px;
+  /*font-size: 2em;*/
+  /*width: auto;*/
+  /*height: 2em;*/
+}
+
+#login-view .column {
+  align-self: flex-start !important;
+  margin-top: 15vh;
+}

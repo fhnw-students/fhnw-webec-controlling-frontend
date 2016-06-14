@@ -1,0 +1,114 @@
+<section id="project-detail-view" class="view">
+
+  <!-- Header -->
+  <nav class="ui inverted large stackable compact menu">
+    <a class="item" href="#/dashboard">
+      <i class="chevron left icon"></i> Back
+    </a>
+
+    <h1 class="page-title">{{title}}</h1>
+
+    <div class="right menu">
+      <div class="ui dropdown item graph-select">
+        <i class="line chart icon"></i>
+        <span class="selected-graph-text">...Loading</span>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" data-graph="resources">Resources</a>
+          <a class="item" data-graph="efficiency">Efficiency</a>
+          <a class="item" data-graph="team">Team</a>
+        </div>
+      </div>
+
+      <div class="ui dropdown top right icon item settings-select">
+        <i class="wrench icon"></i>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item" data-action="update">
+            <i class="edit icon"></i> Edit
+          </div>
+          <div class="item" data-action="destroy">
+            <i class="delete icon"></i> Remove
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+
+    <!-- Graph -->
+    <section class="ui segment graph">
+      <div class="ui inverted dimmer">
+        <div class="ui text loader">Loading</div>
+      </div>
+      <canvas id="graph-container" width="800px" height="200px"></canvas>
+    </section>
+
+    <!-- Table -->
+    <section class="ui segment table">
+      <!--div class="ui inverted dimmer">
+        <div class="ui text loader">Loading</div>
+      </div-->
+      <table class="ui celled striped table">
+        <thead>
+          <tr>
+            <th colspan="4">
+              Resources Table
+            </th>
+          </tr>
+          <tr>
+            <th>
+             Name
+            </th>
+            <th>
+            consumption of resources
+            </th>
+            <th>
+              Worked Hours
+            </th>
+            <th>
+              Difference to Plan
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <!-- Destroy Modal -->
+  <div class="ui basic small transition modal center-model">
+    <div class="ui icon header">
+      <i class="trash icon"></i> Remove Project
+    </div>
+    <div class="content">
+      <p>Are you sure you want to remove this project?</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i> No
+      </div>
+      <div class="ui green ok inverted button">
+        <i class="checkmark icon"></i> Yes
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Message if something went wrong -->
+  <div class="ui negative message error-message hidden">
+    <div class="header">Something went wrong!</div>
+    <p>Please try again or contact your administrator</p>
+  </div>
+
+  <!-- Dimmer Remove Project -->
+  <div class="ui page dimmer destroy-project">
+    <div class="ui text loader">Removing...</div>
+  </div>
+
+</section>

@@ -1,0 +1,49 @@
+<section id="dashboard-view" class="view">
+
+  <!-- Header -->
+  <nav class="ui inverted large stackable compact menu">
+    <a class="item" href="#/projectform/create">
+      <i class="plus icon"></i> Add
+    </a>
+
+    <h1>JIRA Controlling</h1>
+
+    <div class="right menu">
+      <a class="item logout" href="#login">
+        <i class="sign out icon"></i> Sign out
+      </a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+
+    <!-- Message if no project is registered -->
+    <div class="ui icon message hidden is-empty-message">
+      <i class="info circle icon"></i>
+      <div class="content">
+        <div class="header">
+          No project registered yet!
+        </div>
+        <p>Please add a new project to enter the current controlling.</p>
+      </div>
+    </div>
+
+    <!-- Message if something went wrong -->
+    <div class="ui negative message error-message hidden">
+      <div class="header">Something went wrong!</div>
+      <p>Please try again or contact your administrator</p>
+    </div>
+
+    <!-- Project Grid -->
+    <div class="ui segment project-list-segment hidden">
+      <div class="ui items project-list"></div>
+    </div>
+
+  </div>
+
+  <!-- Spinner if request is pending -->
+  <div class="ui page dimmer">
+    <div class="ui text loader">Loading...</div>
+  </div>
+</section>

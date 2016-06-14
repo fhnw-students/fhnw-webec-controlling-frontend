@@ -1,0 +1,11 @@
+.center-model .content p {
+  text-align: center;
+}
+
+.center-model .actions {
+  text-align: center !important;
+}
+
+.modal{
+	display: none;
+}
