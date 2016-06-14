@@ -82,6 +82,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     }
 
     /**
+     * Opens confirmation dialog to delete a project
      */
     function openDestroyModal() {
       $('.ui.basic.modal')
@@ -95,10 +96,10 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
     }
 
     /**
+     * Deletes a project
      */
     function removeProject() {
       setModalLoading(true);
-      // $('.ui.basic.modal').modal('hide');
       var after = function (successful) {
         $('.ui.basic.modal').modal('hide');
         setModalLoading(false);
@@ -110,7 +111,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
         .then(function () {
           after(true);
         })
-        .catch(function (err) {
+        .catch(function () {
           after(false);
         });
     }

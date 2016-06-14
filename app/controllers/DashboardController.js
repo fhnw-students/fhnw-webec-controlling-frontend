@@ -111,7 +111,7 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       showContainer(element, hasFailed);
     }
     /**
-     *
+     * Shows list of projects if not failed
      *
      * @param  {boolean} hasFailed
      */
@@ -133,8 +133,11 @@ define(['views/Dashboard', 'services/ProjectStoreService', 'services/AuthService
       }
     }
     /**
+     * Calculates Days between two dates
+     *
      * @param  {any} date1
      * @param  {any} date2
+     * @return {Integer} days
      */
     function getDaysBetween(date1, date2) {
 

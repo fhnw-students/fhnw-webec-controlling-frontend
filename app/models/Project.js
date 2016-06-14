@@ -34,7 +34,10 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
     'November', 'December'
   ];
   /**
+   * formats the date
    *
+   * @param {date} date
+   * @return {String} date
    */
   function formatDate(date) {
     var day = date.getDate();

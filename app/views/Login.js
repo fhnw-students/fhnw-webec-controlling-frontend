@@ -32,14 +32,7 @@ define(['jquery', 'Handlebars', 'services/TemplateService'], function ($, Handle
       .renderView('#login-view', 'LoginTemplate.html', parameters)
       .then(function (scope) {
         $Scope = scope;
-        // afterRender();
         done($Scope);
       });
   }
-  /**
-   * Life cycle hook. Is triggered after rendering the view
-   */
-  // function afterRender() {
-  // }
-
 });

@@ -44,6 +44,9 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
         bindEvents();
     }
 
+    /**
+     * Generates Project Model
+     */
     function buildFormModel() {
         if (isEdit()) {
             var key = ProjectStoreService.get();

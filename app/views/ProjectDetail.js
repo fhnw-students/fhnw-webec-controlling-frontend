@@ -48,6 +48,8 @@ define(['semantic', 'services/TemplateService', 'jquery'], function ($, template
   }
 
   /**
+   * Generates table in project details view
+   *
    * @param  {Array} list of the projects
    * @param  {Function} done callback
    */

@@ -44,6 +44,8 @@ define(['jquery', 'services/TemplateService'], function ($, templateService) {
     ;
   }
   /**
+   * Generates project items in dashboard view
+   *
    * @param  {Array} list of the projects
    * @param  {Function} done callback
    */

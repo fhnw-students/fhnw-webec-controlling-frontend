@@ -57,6 +57,7 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
   /**
    * Evalutes the controller from the given hash string. Then it
    * loads the controller.
+   *
    * @param  {string} newRouteHash
    */
   function routing(newRouteHash) {
