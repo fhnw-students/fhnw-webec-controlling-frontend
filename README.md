@@ -1,5 +1,4 @@
 # JIRA Worklog Controlling
-
 Our app helps the project owner to control the worklog of their JIRA projects.
 
 We store in our backend service all project relevant informations and configurations.
@@ -32,7 +31,6 @@ charts and tables.
 
 #Development
 ##Libraries
-
 - [JQuery](http://jquery.org)
   - JQuery is used for the DOM manipulations.
 - [RequireJS](http://requirejs.org/)
@@ -44,11 +42,11 @@ charts and tables.
 - [Font Awesome](http://fontawesome.io/)
   - Font Awesome is huge icon library
 
- ## Our Proxy API
+
+## Our Proxy API
 Our API was developed with the Framework Slim. [Documentation](https://github.com/fhnw-students/fhnw-webec-controlling-backend)
 
 #Get Started
-
 - First install [NodeJS](https://nodejs.org/en/)
 - Then open a terminal and naviagte to your project folder
 - Run ```npm install``` to install all dependencies
