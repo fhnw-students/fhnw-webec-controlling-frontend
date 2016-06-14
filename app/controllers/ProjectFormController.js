@@ -227,7 +227,7 @@ define(['views/ProjectForm', 'semantic', 'models/Project', 'services/ProjectStor
                     teamSize: ProjectFormView.getScope().find('input[name="teamSize"]').val(),
                     rangestart: ProjectFormView.getScope().find('input[name="rangestart"]').val(),
                     rangeend: ProjectFormView.getScope().find('input[name="rangeend"]').val(),
-                    description: ProjectFormView.getScope().find('textarea[name="description"]').val()
+                    description: ProjectFormView.getScope().find('textarea[name="description"]').text()
                 });
                 project.save()
                     .then(function () {
