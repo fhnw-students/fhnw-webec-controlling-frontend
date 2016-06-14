@@ -7,6 +7,9 @@ The layout is ready for desktop and tablet devices. Worklogs will be presentet w
 charts and tables.
 
 #Project
+##Big Picture
+![Big Picture](BigPicture.png)
+
 ##API's
 - [JIRA API](https://docs.atlassian.com/jira/REST/latest/#api/2/)
 - [TEMPO API](http://tempo.io/doc/timesheets/api/rest/latest/#1279953671)
@@ -41,5 +44,12 @@ charts and tables.
 - [Font Awesome](http://fontawesome.io/)
   - Font Awesome is huge icon library
 
- ##API
- http://fhnw.w3tec.ch/api/public/user/1/projects
+ ## Our Proxy API
+Our API was developed with the Framework Slim. [Documentation](https://github.com/fhnw-students/fhnw-webec-controlling-backend)
+
+#Get Started
+
+- First install [NodeJS](https://nodejs.org/en/)
+- Then open a terminal and naviagte to your project folder
+- Run ```npm install``` to install all dependencies
+- To start a local web-server you can run ```http-server```
