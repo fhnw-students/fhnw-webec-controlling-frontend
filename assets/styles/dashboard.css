@@ -6,6 +6,7 @@
 #dashboard-view .project-list .description {
 	flex: 1;
 	color: rgba(0, 0, 0, 0.87);
+  padding-right: 40px;
 }
 
 #dashboard-view .project-list .description:hover {
