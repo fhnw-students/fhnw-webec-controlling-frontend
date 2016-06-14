@@ -81,7 +81,7 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
    * @returns {Promise<Object>}
    */
   Project.prototype.getGraphData = function (graphName) {
-    return api.read('/' + this.data.pid + '/' + graphName + '/graph')
+    return api.read(this.data.pid, '/' + graphName + '/graph')
       .then(function (data) {
         var indexColor = 0;
         data.datasets = data.datasets.map(function (dataset) {
@@ -99,7 +99,7 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
    * @returns {Promise<Object[]>}
    */
   Project.prototype.getResourceTableData = function(){
-    return api.read('/' + this.data.pid + '/resources/table')
+    return api.read(this.data.pid, '/resources/table')
   };
   /**
    * Public API

@@ -9,6 +9,8 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
   /**
    * Public API
    * All the returned function are available from outside
+	 *
+	 * @param  {string} basic route
    */
 	return function (route) {
 		return {
@@ -18,27 +20,58 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 			destroy: destroy,
 			custom: custom
 		};
-
+		/**
+		 * This sends a POST request to the backend
+		 *
+		 * @param  {Object} data to send
+		 * @param  {string} path to attend to the route
+		 * @returns {Promise<Object>} Body of the response
+		 */
 		function create(data, path) {
 			path = buildRoute(route, path);
 			return request(path, 'POST', data);
 		}
-
-		function read(path, key) {
+		/**
+		 * This sends a GET request to the backend
+		 *
+		 * @param  {string} key - identifier
+		 * @param  {string} path to attend to the route
+		 * @returns {Promise<Object>} Body of the response
+		 */
+		function read(key, path) {
 			path = buildRoute(route, path, key);
 			return request(path, 'GET');
 		}
-
+		/**
+		 * This sends a PUT request to the backend
+		 *
+		 * @param  {string} key - identifier
+		 * @param  {Object} data to send
+		 * @param  {string} path to attend to the route
+		 * @returns {Promise<Object>} Body of the response
+		 */
 		function update(key, data, path) {
 			path = buildRoute(route, path, key);
 			return request(path, 'PUT', data);
 		}
-
-		function destroy(path, key) {
+		/**
+		 * This sends a DELETE request to the backend
+		 *
+		 * @param  {string} key - identifier
+		 * @param  {string} path to attend to the route
+		 * @returns {Promise<Object>} Body of the response
+		 */
+		function destroy(key, path) {
 			path = buildRoute(route, path, key);
 			return request(path, 'DELETE');
 		}
-
+		/**
+		 * This sends a custom request to the backend
+		 *
+		 * @param  {string} path to attend to the route
+		 * @param  {string} http-method
+		 * @returns {Promise<Object>} Body of the response
+		 */
 		function custom(path, method) {
 			if (!path) {
 				path = '';
@@ -47,6 +80,13 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 		}
 	};
 	//////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Builds the route with the key, basic-route and the given path
+	 *
+	 * @param  {string} route - basic route of the given model
+	 * @param  {string} path to attend to the route
+	 * @param  {string} key - identifier
+	 */
 	function buildRoute(route, path, key) {
 		var uri = route;
 		if (path && path.charAt(0) === '/') {
