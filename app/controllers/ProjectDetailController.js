@@ -235,9 +235,7 @@ define(['views/ProjectDetail', 'jquery', 'services/ProjectStoreService', 'models
             item.relWorkload = parseInt(item.relWorkload.toFixed(0), 10);
             return item;
           });
-          ProjectDetailView.setListItems(list, function () {
-            console.log('done');
-          });
+          return ProjectDetailView.setListItems(list);
         })
         .catch(function (err) {
           console.error(err);

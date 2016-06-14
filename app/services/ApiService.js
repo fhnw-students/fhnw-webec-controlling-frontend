@@ -90,13 +90,13 @@ define(['jquery', 'services/SessionService'], function ($, SessionService) {
 	function buildRoute(route, path, key) {
 		var uri = route;
 		if (path && path.charAt(0) === '/') {
-			uri += path;
 			if (key) {
 				uri += '/' + key;
 			}
+			uri += path;
 		} else {
 			if (path && !key) {
-				uri += '/' + path;
+				uri += path;
 			} else {
 				if (key) {
 					uri += '/' + key;
