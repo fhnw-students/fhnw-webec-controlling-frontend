@@ -55,33 +55,56 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
       rangeend: formatDate(new Date(this.data.rangeend))
     };
   }
-
+  /**
+   * Gets the models data
+   *
+   * @returns {Object} data
+   */
   Project.prototype.getData = function () {
     return this.data;
   };
-
+  /**
+   * Updates the models data
+   *
+   * @param  {Object} data
+   */
   Project.prototype.setData = function (data) {
     this.data = $.extend({}, this.data, data);
   };
-
+  /**
+   * Saves the model. If a user-id is given it updates the model,
+   * otherwise it creates a new one.
+   *
+   * @returns Promise<Project>
+   */
   Project.prototype.save = function () {
-    if(this.data.uid){
-        return api.update(this.data.pid, this.data);
-    }else{
-        return api.create(this.data);
+    var promise;
+    if (this.data.uid) {
+      promise = api.update(this.data.pid, this.data);
+    } else {
+      promise = api.create(this.data);
     }
+    if (promise) {
+      promise.then(function (data) {
+        this.data = data;
+        return this.data;
+      });
+    }
+    return promise;
   };
 
   Project.prototype.remove = function () {
     return api.destroy(this.data.pid);
   };
   /**
+   * Loads the graphs data from the backend
+   *
    * @param  {string} projectKey
    * @param  {string} graphName
    * @returns {Promise<Object>}
    */
   Project.prototype.getGraphData = function (graphName) {
-    return api.read('/' + this.data.pid + '/' + graphName + '/graph')
+    return api.read(this.data.pid, '/' + graphName + '/graph')
       .then(function (data) {
         var indexColor = 0;
         data.datasets = data.datasets.map(function (dataset) {
@@ -98,20 +121,36 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
    *
    * @returns {Promise<Object[]>}
    */
-  Project.prototype.getResourceTableData = function(){
-    return api.read('/' + this.data.pid + '/resources/table')
+  Project.prototype.getResourceTableData = function () {
+    return api.read(this.data.pid, '/resources/table')
   };
   /**
    * Public API
    */
   return {
+    /**
+     * Creates a new model
+     *
+     * @param  {Object} data
+     * @returns {Project}
+     */
     create: function (data) {
       return new Project(data);
     },
+    /**
+     * Loads all JIRA projects from the loged in user
+     *
+     * @returns {Promise<Object[]>}
+     */
     getAllFromJira: function () {
       return api
         .custom('/all/projects');
     },
+    /**
+     * Loads all projects from our backend
+     *
+     * @returns {Promise<Project[]>}
+     */
     getAll: function () {
       return api
         .read()
@@ -121,6 +160,12 @@ define(['services/ApiService', 'jquery'], function (ApiService, $) {
           });
         });
     },
+    /**
+     * Loads the project with the given key from our backend
+     *
+     * @param {string} key of the project
+     * @returns {Promise<Project>}
+     */
     get: function (key) {
       return api
         .read(key)
